@@ -874,6 +874,7 @@ nav menu css
 
 .main {
   margin-top: -10rem;
+  min-height: 500px;
 }
 
 @media all and (min-width: 992px) {

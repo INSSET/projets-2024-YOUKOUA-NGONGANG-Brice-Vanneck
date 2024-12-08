@@ -20,8 +20,6 @@ class SecurityController extends AbstractController
     #[Route('api/login', name: 'auth_login', methods: ['POST'])]
     public function login(Request $request): Response
     {
-
-
         return $this->json('Security' ,201);
     }
 
@@ -54,6 +52,8 @@ class SecurityController extends AbstractController
         }
         return $this->json("No register");
     }
+
+
 
 
 }
