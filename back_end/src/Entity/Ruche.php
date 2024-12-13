@@ -2,10 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RucheRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource(
+    paginationMaximumItemsPerPage:10
+),
+    ApiFilter(SearchFilter::class,properties: ['libelle'=>'partial'])
+]
 #[ORM\Entity(repositoryClass: RucheRepository::class)]
 class Ruche
 {
@@ -26,7 +35,22 @@ class Ruche
     #[ORM\Column(type: Types::DECIMAL, precision: 20, scale: 16, nullable: true)]
     private ?string $latitude = null;
 
-    public function getId(): ?int
+
+
+    #[ORM\OneToMany(targetEntity: Intervention::class, mappedBy: 'ruche')]
+    private Collection $interventions;
+
+    #[ORM\OneToMany(targetEntity: Recolte::class, mappedBy: 'ruche')]
+    private Collection $recoltes;
+
+    public function __construct()
+    {
+        $this->interventions = new ArrayCollection();
+        $this->recoltes = new ArrayCollection();
+
+    }
+
+        public function getId(): ?int
     {
         return $this->id;
     }
@@ -78,4 +102,38 @@ class Ruche
 
         return $this;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    /**
+     * @param Collection $interventions
+     */
+    public function setInterventions(Collection $interventions): void
+    {
+        $this->interventions = $interventions;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRecoltes(): Collection
+    {
+        return $this->recoltes;
+    }
+
+    /**
+     * @param Collection $recoltes
+     */
+    public function setRecoltes(Collection $recoltes): void
+    {
+        $this->recoltes = $recoltes;
+    }
+
+
 }

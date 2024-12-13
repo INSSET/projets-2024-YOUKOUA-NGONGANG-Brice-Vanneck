@@ -5,12 +5,171 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25f84c2d-0ae1-41e7-85e1-38666b8fb607" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/back_end/src/Controller/RucheController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/.env" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/assets/controllers.json" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/assets/controllers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back_end/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/Entity/Intervention.php" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/Entity/Intervention.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/Entity/Recolte.php" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/Entity/Recolte.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/Entity/Ruche.php" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/Entity/Ruche.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/auth/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/auth/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/auth/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/auth/login/login.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/auth/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/auth/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/auth/register/register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/auth/register/register.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/auth/register/register.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/auth/register/register.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/auth/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/auth/register/register.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/public/apiculteur/apiculteur.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/public/apiculteur/apiculteur.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/footer/footer.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/footer/footer.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/public/apiculteur/apiculteur.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/public/apiculteur/apiculteur.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/public/apiculteur/apiculteur.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/public/apiculteur/apiculteur.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/footer/footer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/all-fontawesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/animate.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/flex-slider.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/images/ui-icons_444444_256x240.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/images/ui-icons_555555_256x240.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/images/ui-icons_777620_256x240.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/images/ui-icons_777777_256x240.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/images/ui-icons_cc0000_256x240.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/images/ui-icons_ffffff_256x240.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/magnific-popup.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/owl.carousel.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/owl.video.play.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-brands-400.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-brands-400.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-duotone-900.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-duotone-900.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-light-300.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-light-300.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-regular-400.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-regular-400.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-light-300.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-light-300.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-regular-400.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-regular-400.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-solid-900.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-solid-900.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-thin-100.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-sharp-thin-100.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-solid-900.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-solid-900.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-thin-100.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-thin-100.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-v4compatibility.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/fonts/fa-v4compatibility.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/about/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/about/02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/author.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/bs-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/bs-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/bs-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/com-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/com-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/com-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/blog/single.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/breadcrumb/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/choose/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/coming-soon/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/delivery/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/delivery/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/faq/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/gallery/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/gallery/02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/gallery/04.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/gallery/05.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/gallery/06.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/arrow.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/bee-1.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/bee-2.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/bee-hive-2.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/bee-hive-3.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/bee-hive.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/flower.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/honey-1.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/honey-2.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/honey-3.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/honey-jar.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/honeycomb-2.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/honeycomb.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/immunity.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/medal.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/product.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/icon/rating-stars.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/logo/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/logo/logo-dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/logo/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/offer/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/offer/02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/offer/03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/partner/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/service/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/service/02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/service/single.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shape/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shape/02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shape/03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shape/04.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shape/06.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/05.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/06.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/07.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/08.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/shop/09.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/slider/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/slider/02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/slider/slider-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/slider/slider-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/slider/slider-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/team/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/team/02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/team/03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/team/04.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/testimonial/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/testimonial/02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/testimonial/03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/testimonial/04.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/testimonial/05.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/video/01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/img/widget/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/contact-form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/countdown.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/counter-up.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/flex-slider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/imagesloaded.pkgd.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/isotope.pkgd.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/jquery-3.6.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/jquery.appear.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/jquery.easing.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/jquery.magnific-popup.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/masonry.pkgd.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/modernizr.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/owl.carousel.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/js/wow.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +182,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/frontend/src/app/modules/public/apiculteur/apiculteur.component.html" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -169,30 +331,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "AutoIdentifyTypo3Version": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TYPO3AuthorEmailAddress": "myname@example.org",
-    "TYPO3AuthorName": "My Name",
-    "TYPO3PathToExtensionDomainModels": "Classes/Domain/Model/",
-    "TYPO3PathToLocalExtensions": "typo3conf/ext/",
-    "TYPO3PathToSystemExtensions": "typo3/sysext/",
-    "TYPO3ProjectConfigured": "true",
-    "TYPO3Version": "None",
-    "TYPO3XliffLanguages": "af:Afrikaans;\nar:Arabic;\nbs:Bosnian;\nbg:Bulgarian;\nca:Catalan;\nch:Chinese (Simpl.);\ncs:Czech;\nda:Danish;\nde:German;\nel:Greek;\neo:Esperanto;\nes:Spanish;\net:Estonian;\neu:Basque;\nfa:Persian;\nfi:Finnish;\nfo:Faroese;\nfr:French;\nfr_CA:French (Canada);\ngl:Galician;\nhe:Hebrew;\nhi:Hindi;\nhr:Croatian;\nhu:Hungarian;\nis:Icelandic;\nit:Italian;\nja:Japanese;\nka:Georgian;\nkl:Greenlandic;\nkm:Khmer;\nko:Korean;\nlt:Lithuanian;\nlv:Latvian;\nms:Malay;\nnl:Dutch;\nno:Norwegian;\npl:Polish;\npt:Portuguese;\npt_BR:Brazilian Portuguese;\nro:Romanian;\nru:Russian;\nsk:Slovak;\nsl:Slovenian;\nsq:Albanian;\nsr:Serbian;\nsv:Swedish;\nth:Thai;\ntr:Turkish;\nuk:Ukrainian;\nvi:Vietnamese;\nzh:Chinese (Trad.)",
-    "TYPO3XliffPathToExtensionLanguageFiles": "Resources/Private/Language/",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\projet\\apiculture\\projets-2024-YOUKOUA-NGONGANG-Brice-Vanneck\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;AutoIdentifyTypo3Version&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TYPO3AuthorEmailAddress&quot;: &quot;myname@example.org&quot;,
+    &quot;TYPO3AuthorName&quot;: &quot;My Name&quot;,
+    &quot;TYPO3PathToExtensionDomainModels&quot;: &quot;Classes/Domain/Model/&quot;,
+    &quot;TYPO3PathToLocalExtensions&quot;: &quot;typo3conf/ext/&quot;,
+    &quot;TYPO3PathToSystemExtensions&quot;: &quot;typo3/sysext/&quot;,
+    &quot;TYPO3ProjectConfigured&quot;: &quot;true&quot;,
+    &quot;TYPO3Version&quot;: &quot;None&quot;,
+    &quot;TYPO3XliffLanguages&quot;: &quot;af:Afrikaans;\nar:Arabic;\nbs:Bosnian;\nbg:Bulgarian;\nca:Catalan;\nch:Chinese (Simpl.);\ncs:Czech;\nda:Danish;\nde:German;\nel:Greek;\neo:Esperanto;\nes:Spanish;\net:Estonian;\neu:Basque;\nfa:Persian;\nfi:Finnish;\nfo:Faroese;\nfr:French;\nfr_CA:French (Canada);\ngl:Galician;\nhe:Hebrew;\nhi:Hindi;\nhr:Croatian;\nhu:Hungarian;\nis:Icelandic;\nit:Italian;\nja:Japanese;\nka:Georgian;\nkl:Greenlandic;\nkm:Khmer;\nko:Korean;\nlt:Lithuanian;\nlv:Latvian;\nms:Malay;\nnl:Dutch;\nno:Norwegian;\npl:Polish;\npt:Portuguese;\npt_BR:Brazilian Portuguese;\nro:Romanian;\nru:Russian;\nsk:Slovak;\nsl:Slovenian;\nsq:Albanian;\nsr:Serbian;\nsv:Swedish;\nth:Thai;\ntr:Turkish;\nuk:Ukrainian;\nvi:Vietnamese;\nzh:Chinese (Trad.)&quot;,
+    &quot;TYPO3XliffPathToExtensionLanguageFiles&quot;: &quot;Resources/Private/Language/&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/projet/apiculture/projets-2024-YOUKOUA-NGONGANG-Brice-Vanneck/back_end/config/packages&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\projet\\apiculture\\projets-2024-YOUKOUA-NGONGANG-Brice-Vanneck\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\projet\apiculture\projets-2024-YOUKOUA-NGONGANG-Brice-Vanneck\back_end\config\packages" />
+      <recent name="D:\projet\apiculture\projets-2024-YOUKOUA-NGONGANG-Brice-Vanneck\frontend\src\assets" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -209,7 +378,11 @@
       <workItem from="1731877283187" duration="2609000" />
       <workItem from="1732270394563" duration="142000" />
       <workItem from="1732531308472" duration="624000" />
-      <workItem from="1733653967493" duration="5755000" />
+      <workItem from="1733653967493" duration="13791000" />
+      <workItem from="1733841243691" duration="695000" />
+      <workItem from="1733935440565" duration="318000" />
+      <workItem from="1733939288872" duration="14157000" />
+      <workItem from="1734089559713" duration="5195000" />
     </task>
     <servers />
   </component>

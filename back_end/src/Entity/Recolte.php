@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RecolteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: RecolteRepository::class)]
 class Recolte
 {
@@ -22,6 +24,9 @@ class Recolte
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $created_at = null;
+
+    #[ORM\ManyToOne(targetEntity: Ruche::class, inversedBy: 'recoltes')]
+    private Ruche $ruche;
 
     public function getId(): ?int
     {
@@ -63,4 +68,22 @@ class Recolte
 
         return $this;
     }
+
+    /**
+     * @return Ruche
+     */
+    public function getRuche(): Ruche
+    {
+        return $this->ruche;
+    }
+
+    /**
+     * @param Ruche $ruche
+     */
+    public function setRuche(Ruche $ruche): void
+    {
+        $this->ruche = $ruche;
+    }
+
+
 }

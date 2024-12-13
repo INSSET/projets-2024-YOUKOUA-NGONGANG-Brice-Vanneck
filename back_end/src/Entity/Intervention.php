@@ -2,10 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource(),
+    ApiFilter(SearchFilter::class,properties: ['libelle'=>'partial'])
+]
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 class Intervention
 {
@@ -19,6 +25,10 @@ class Intervention
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
+    #[ORM\ManyToOne(targetEntity: Ruche::class, inversedBy: 'interventions')]
+    private Ruche $ruche;
+
 
     public function getId(): ?int
     {
@@ -48,4 +58,22 @@ class Intervention
 
         return $this;
     }
+
+    /**
+     * @return Ruche
+     */
+    public function getRuche(): Ruche
+    {
+        return $this->ruche;
+    }
+
+    /**
+     * @param Ruche $ruche
+     */
+    public function setRuche(Ruche $ruche): void
+    {
+        $this->ruche = $ruche;
+    }
+
+
 }
