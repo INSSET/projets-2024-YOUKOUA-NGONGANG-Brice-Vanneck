@@ -1,7 +1,7 @@
 @import "primeicons/primeicons.css";
 
 /* You can add global styles to this file, and also import other style files */
-
+/*
 .bg-slide{
   background-image: url("assets/img/slider/slider-1.jpg");
 }
@@ -13,13 +13,37 @@
 
 .btn{
   border-radius: 50px !important;
-  
+
 }
 
+*/
 
 
 
 .p-selectbutton .p-button {
-  color: #4b5563;
-  height: 10px;
+  //color: #4b5563;
+  height: 32px;
 }
+
+
+
+
+.bg-auth{
+  background-color: var(--primary-color-three);
+}
+
+
+.custom-dialog .p-dialog-header {
+  display: flex !important;
+  justify-content: flex-start !important; /* Aligne tout à gauche */
+}
+
+.custom-dialog .p-dialog-header-title {
+  margin-left: auto !important; /* Déplace le titre après le bouton de fermeture */
+}
+
+.custom-dialog .p-dialog-header-icon {
+  order: -1 !important; /* Place le bouton de fermeture avant le titre */
+}
+
+
