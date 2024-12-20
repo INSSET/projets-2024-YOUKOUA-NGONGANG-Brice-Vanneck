@@ -12,6 +12,7 @@ class HomeController extends AbstractController
 
     public function __construct(private Security $security)
     {
+
     }
 
     #[Route('/home', name: 'app_home')]
@@ -35,6 +36,9 @@ class HomeController extends AbstractController
         //dd($user);
         return $this->json($user);
     }
+
+
+
 
 
 }

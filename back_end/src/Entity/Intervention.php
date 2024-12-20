@@ -8,9 +8,13 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(),
-    ApiFilter(SearchFilter::class,properties: ['libelle'=>'partial'])
+#[ApiResource(paginationMaximumItemsPerPage: 10,
+    normalizationContext: ['groups' => ['intervention:read']],
+    denormalizationContext: ['groups' => ['intervention:write']]),
+    ApiFilter(SearchFilter::class,properties: ['libelle'=>'partial','ruche'=>'exact'])
+
 ]
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 class Intervention
@@ -18,14 +22,15 @@ class Intervention
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['intervention:read', 'ruche:read'])]
     private ?int $id = null;
-
+    #[Groups(['intervention:read'])]
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
-
+    #[Groups(['intervention:read'])]
     #[ORM\ManyToOne(targetEntity: Ruche::class, inversedBy: 'interventions')]
     private Ruche $ruche;
 
@@ -74,6 +79,9 @@ class Intervention
     {
         $this->ruche = $ruche;
     }
+
+    
+
 
 
 }

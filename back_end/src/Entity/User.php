@@ -33,6 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface,JWTUserI
      * @var string The hashed password
      */
     #[ORM\Column]
+
     private ?string $password = null;
 
     public function getId(): ?int
