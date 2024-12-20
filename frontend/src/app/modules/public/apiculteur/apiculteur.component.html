@@ -1,125 +1,154 @@
 
-<app-header></app-header>
+<div id="wrapper_full" class="content_all_warpper">
+  <!----page-header----->
 
+  <!----preloader----->
 
+  <!----preloader end----->
+  <!----header----->
+  <app-header></app-header>
+  <!----header----->
 
+  <div id="content" class="site-content " style="min-height: 500px">
 
-<main class="main">
+    <div class="container">
 
+      <div class="mt-4 d-flex" style="justify-content: space-between;">
 
-   
-  <div class="container">
-    <div class="mt-4 d-flex" style="justify-content: space-between;">
-      
-      <button class="btn btn-primary" (click)="addRuche()"> Ajouter ruche</button>
-    
-      <div style="float: right;">
-        <p-selectButton [options]="stateOptions" (ngModelChange)="changeDisplay()"  [(ngModel)]="displayType" optionLabel="label" optionValue="value" />
+        <button class="btn btn-primary" (click)="addRuche()"> Ajouter ruche</button>
+
+        <div style="float: right;">
+          <p-selectButton [options]="stateOptions" (ngModelChange)="changeDisplay()"  [(ngModel)]="displayType" optionLabel="label" optionValue="value" />
+        
+        </div>
+
       </div>
 
-    </div>
 
-    
-    <div class="row mt-2">
+      <div class="row mt-2 mb-4">
 
         <div *ngIf="displayType=='table'">
-            <p-table #dt [rows]="10" [loading]="loading" [rowHover]="true" [paginator]="true" [value]="rucheList" sortMode="multiple"
-            [rowsPerPageOptions]="[10,20,50,100]"
-            styleClass="p-datatable-sm p-datatable-striped"
-            responsiveLayout="scroll"
-            [lazy]="true"
-            [totalRecords]="totalRecords"
-            (onLazyLoad)="loadItems($event)"
-            [resizableColumns]="true"
-            [responsive]="true"
-            currentPageReportTemplate="Affiche {first} à {last} sur {totalRecords} entrées"
-            [showCurrentPageReport]="true"
-            [globalFilterFields]="['title','statut','created_at']" >
-        
-      
+          <p-table #dt [rows]="10" [loading]="loading" [rowHover]="true" [paginator]="true" [value]="rucheList" sortMode="multiple"
+                   styleClass="p-datatable-sm p-datatable-striped"
+                   responsiveLayout="scroll"
+                   [lazy]="true"
+                   [totalRecords]="totalRecords"
+                   (onLazyLoad)="loadItems($event)"
+                   [resizableColumns]="true"
+                   [responsive]="true"
+                   currentPageReportTemplate="Affiche {first} à {last} sur {totalRecords} entrées"
+                   [showCurrentPageReport]="true"
+                   [globalFilterFields]="['libelle','nb_intervention','created_at']" >
+
+
             <ng-template pTemplate="caption">
-                <div class="d-flex p-ai-center justify-content-between">
-                  <h5 class="p-m-0">Liste des ruches</h5>
-                  <span class="p-input-icon-left">
+              <div class="d-flex p-ai-center justify-content-between">
+                <h5 class="p-m-0">Liste des ruches</h5>
+                <span class="p-input-icon-left">
                   <i class="pi pi-search"></i>
                   <input pInputText [(ngModel)]="search" (input)="dt.filterGlobal(search, 'contains')" type="text" class="form-control" style="padding-left: 30px"
-                          placeholder="Rechercher une ruche..." />
+                         placeholder="Rechercher une ruche..." />
                   </span>
-                </div>
+              </div>
             </ng-template>
-        
+
             <ng-template pTemplate="header">
-            <tr>
-            <th>Nom</th>
-            <th>Nombre d'intervention</th>            
-            <th>Date de création </th>
-            <th>Actions</th>
-            </tr>
+              <tr>
+                <th>Nom</th>
+                <th>Nombre d'intervention</th>
+                <th>Date de création </th>
+                <th>Actions</th>
+              </tr>
             </ng-template>
-        
-        
-            <ng-template pTemplate="body" let-dataItem>
-        
-        
+
+
+            <ng-template pTemplate="body"  let-dataItem>
+
+
+
             </ng-template>
-        
-        
-        
-            </p-table>
-        
+
+          </p-table>
+
         </div>
 
         <div class=" mt-4" *ngIf="displayType=='map'">
+          
           <div class="map-container" leaflet
-            [leafletOptions]="options"
-            (leafletMapReady)="onMapReady($event)"
-            (leafletClick)="mapClicked($event)">
+               [leafletOptions]="options"
+               (leafletMapReady)="onMapReady($event)"
+               (leafletClick)="mapClicked($event)">
           </div>
         </div>
-    </div>
+      </div>
 
+
+    </div>
 
   </div>
 
-
-
-  
-</main>
+</div>
 
 <app-footer></app-footer>
-
-
-
- 
-
 <!-- Modal of this page-->
 
-<p-dialog header="Création d'une ruche" [modal]="true" [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
-    
-    <form [formGroup]="rucheForm">
 
-        <div class="form-group">
-            <label for="nom" class="col-form-label">Nom de la ruche:</label>
-            <input type="text" class="form-control" formControlName="nom" [(ngModel)]="this.ruche.nom" name="nom" id="nom" required>
+<p-dialog  [header]="'Création d\'une ruche'" [baseZIndex]="999999990"  [closable]="true" [modal]="true"    [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
+
+  <form [formGroup]="rucheForm">
+
+    <div class="form-group">
+      <label for="nom" class="col-form-label">Nom de la ruche:</label>
+      <input type="text" class="form-control" formControlName="nom" [(ngModel)]="this.ruche.nom" name="nom" id="nom" required placeholder="Nom de la ruche">
+    </div>
+
+    <div class="form-group">
+      <label  class="col-form-label">Position:</label>
+      <a class="d-flex float-end choose-map" href="javascript:void(0)" (click)="openPositionDialog()"> choisir sur la carte </a>
+      <div class="row">
+        <div class="col-6">
+          <input type="text" class="form-control" formControlName="longitude" [(ngModel)]="this.ruche.lon" name="longitude" id="position" required placeholder="longitude">
+
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control" formControlName="latitude" [(ngModel)]="this.ruche.lat" name="latitude" id="position" required placeholder="latitude">
         </div>
 
-        <div class="form-group">
-            <label for="position" class="col-form-label">Position:</label>
-            <input type="text" class="form-control" formControlName="position" [(ngModel)]="this.ruche.position" name="position" id="position" required>
+      </div>
+   
+    </div>
+
+    <div class="d-flex mt-4 justify-content-center align-items-center ">
+
+      <button type="reset" [disabled]="senddingRequest || isUpdating" class="btn btn-light  btn_effacer me-2" (click)="fermerRuche()">Fermer</button>
+
+      <button (click)="saveRuche()" type="button" [disabled]="rucheForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
+        <span *ngIf="!senddingRequest">Enregister</span>
+        <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
+          <span class="sr-only"></span>
         </div>
 
-        <div class="d-flex mt-4 justify-content-center align-items-center ">
-            
-            <button type="reset" [disabled]="senddingRequest || isUpdating" class="btn btn-light  btn_effacer me-2" (click)="fermerRuche()">Fermer</button>
-          
-            <button (click)="saveRuche()" type="submit" [disabled]="rucheForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
-                <span *ngIf="!senddingRequest">Enregister</span>
-                <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
-                    <span class="sr-only"></span>
-                </div>
-            </button>
-        </div>
-      </form>
+
+      </button>
+    </div>
+  </form>
 
 </p-dialog>
 
+
+<p-dialog [baseZIndex]="999999991" [header]="'Choisir une position sur la carte'" (onShow)="onDialogShow()" [closable]="true" [modal]="true"    [(visible)]="positionDialog" [style]="{ width: '70%', height:'80%'}">
+
+  <div *ngIf="positionDialog" class="dialog-map-container" leaflet
+    [leafletOptions]="optionsDialog"
+    (leafletMapReady)="dialogOnMapReady($event)"
+    (leafletClick)="dialogMapClicked($event)">
+  </div>
+
+  <div class="d-flex mt-4 justify-content-center align-items-center ">
+    <button type="button" class="btn btn-light  btn_effacer me-2" (click)="positionDialog=false">Fermer</button>
+    <button (click)="validerPosition()" type="button" [disabled]="position.lat==null || position.lon==null" class="btn d-flex justify-content-center align-items-center btn-primary">
+      Valider cette position
+    </button>
+  </div>
+
+</p-dialog>

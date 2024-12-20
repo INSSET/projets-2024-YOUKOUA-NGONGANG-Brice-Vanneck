@@ -1,38 +1,91 @@
-<!-- header area -->
-<header class="header">
-  <div class="main-navigation">
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <a class="navbar-brand" href="#" >
-          <!-- <img src="assets/img/logo/logo-dark.png" alt="logo"> -->
-        </a>
-        <div class="mobile-menu-right">
-          <div class="mobile-menu-list">
-            <!-- <a href="#" class="mobile-menu-link search-box-outer"><i class="far fa-search"></i></a>
-            <a href="#" class="mobile-menu-link"><i class="far fa-shopping-bag"></i><span>2</span></a> -->
+
+<div class="header_area" id="header_contents">
+  <div class="header_style_six_nw ver_2">
+
+    <header class="header header_default style_six get_sticky_header">
+      <div class="auto-container">
+        <div class="row align-items-center">
+          <div class="col-lg-2 col-md-9 col-sm-9 col-xs-9 logo_column">
+            <div class="header_logo_box">
+              <a href="/" class="logo navbar-brand" target="_blank" rel="nofollow">
+                <img src="assets/logo.png" alt="apiculter logo" class="logo_default">
+              </a>
+            </div>
           </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-btn-icon"><i class="far fa-bars"></i></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="main_nav">
-          <ul class="navbar-nav">
+          <div class="col-lg-10 col-md-3 col-sm-3 col-xs-3 menu_column">
+            <div class="navbar_togglers hamburger_menu">
+              <span class="line"></span>
+              <span class="line"></span>
+              <span class="line"></span>
+            </div>
+            <div class="header_content_collapse">
+              <div class="header_menu_box">
+                <div class="navigation_menu">
+                  <ul id="myNavbar" class="navbar_nav">
+                    <li
+                      class="menu-item  menu-item-has-children dropdown active  position-static mega_menu nav-item">
+                      <a href="index.html" class="dropdown-toggle nav-link">
+                        <span>Acceuil</span>
+                      </a>
+                    </li>
 
-            <li class="nav-item"><a class="nav-link" href="about.html">Acueil</a></li>
 
-            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          </ul>
-          <div class="header-nav-right">
+                  </ul>
+                </div>
+              </div>
+              <div class="header_right_content">
+                <ul>
+                  <li>
+                    <button type="button" class="search-toggler"><i
+                      class="icon-search3"></i></button>
+                  </li>
 
-            <div class="header-btn">
-              <a href="#" class="theme-btn theme-btn2 mt-2"><span class="far fa-lock"></span> Connexion</a>
-              
+                  <li>
+                    <button type="button" class="contact-toggler"><i class="icon-menu1"></i></button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </nav>
+    </header>
   </div>
-</header>
-<!-- header area end -->
+</div>
+
+
+
+<!-- 
+
+<p-dialog [baseZIndex]="999999999"  [styleClass]="'custom-dialog'" [closable]="true"     [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
+
+  <form [formGroup]="rucheForm">
+
+    <div class="form-group">
+      <label for="nom" class="col-form-label">Nom de la ruche:</label>
+      <input type="text" class="form-control" formControlName="nom" [(ngModel)]="this.ruche.nom" name="nom" id="nom" required>
+    </div>
+
+    <div class="form-group">
+      <label for="position" class="col-form-label">Position:</label>
+      <input type="text" class="form-control" formControlName="position" [(ngModel)]="this.ruche.position" name="position" id="position" required>
+    </div>
+
+    <div class="d-flex mt-4 justify-content-center align-items-center ">
+
+      <button type="reset" [disabled]="senddingRequest || isUpdating" class="btn btn-light  btn_effacer me-2" (click)="fermerRuche()">Fermer</button>
+
+      <button (click)="saveRuche()" type="button" [disabled]="rucheForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
+        <span *ngIf="!senddingRequest">Enregister</span>
+        <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
+          <span class="sr-only"></span>
+        </div>
+
+
+      </button>
+    </div>
+  </form>
+
+</p-dialog>
+
+-->

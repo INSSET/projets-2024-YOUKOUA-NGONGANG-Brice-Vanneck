@@ -28,11 +28,19 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
+        refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            provider: app_user_provider
+            refresh_jwt: ~
+            #anonymous: true
         api:
             pattern: ^/api
             stateless: true
             provider: jwt
             jwt: ~
+            entry_point: jwt # Définit JWT comme point d'entrée principal
+
 
         main:
             lazy: true
@@ -50,7 +58,10 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api$, roles: PUBLIC_ACCESS }
+
+        - { path: ^/api/.*, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:
