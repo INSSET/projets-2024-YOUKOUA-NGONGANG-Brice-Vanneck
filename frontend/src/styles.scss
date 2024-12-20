@@ -27,7 +27,6 @@
 
 
 
-
 .bg-auth{
   background-color: var(--primary-color-three);
 }
@@ -46,4 +45,12 @@
   order: -1 !important; /* Place le bouton de fermeture avant le titre */
 }
 
+.pi {
+  font-size: .8rem;
+}
+.p-button.p-button-icon-only{
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 10px;
+}
 

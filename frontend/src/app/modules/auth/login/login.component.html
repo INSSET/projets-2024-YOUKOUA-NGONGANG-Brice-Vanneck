@@ -9,14 +9,14 @@
             <img src="assets/logo.png" width="100" height="100" alt="">
             <p>Veuillez vous connecter avec vos identifiants</p>
           </div>
-          <form >
+          <form [formGroup]="authform" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" class="form-control" placeholder="Votre email">
+              <input type="email" formControlName="username" [(ngModel)]="login.username" id="email" class="form-control" placeholder="Votre email">
             </div>
             <div class="form-group">
               <label for="password">Mot de passe</label>
-              <input type="password" id="password" class="form-control" placeholder="Votre mot de passe">
+              <input type="password" formControlName="password" [(ngModel)]="login.password" id="password" class="form-control" placeholder="Votre mot de passe">
             </div>
             <div class="d-flex justify-content-between mb-4">
               <!-- <div class="form-check">
@@ -25,10 +25,18 @@
                   Se souvenir de moi
                 </label>
               </div> -->
-              <a href="javascript:void(0)" class="forgot-pass">Mot de passe oublier?</a>
+              <!-- <a href="javascript:void(0)" class="forgot-pass">Mot de passe oublier?</a> -->
             </div>
             <div class="d-flex mt-4 justify-content-center align-items-center">
-              <button type="submit" class="w-100"><i class="far fa-sign-in"></i> Connexion</button>
+              <button type="submit" class="w-100" [disabled]="this.submitting || this.authform.invalid">
+                
+                <span *ngIf="!submitting">Connexion <i class="pi pi-sign-in"></i></span>
+                <div  *ngIf="submitting">
+                  <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Chargement...
+                </div>
+
+              </button>
             </div>
           </form>
           <div class="login-footer">

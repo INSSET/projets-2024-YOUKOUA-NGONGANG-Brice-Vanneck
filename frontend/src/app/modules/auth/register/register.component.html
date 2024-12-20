@@ -10,26 +10,26 @@
             <!-- <img src="assets/img/logo/logo-dark.png" alt=""> -->
             <p>Création de votre compte</p>
           </div>
-          <form action="#">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label>Votre nom complet</label>
-              <input type="text" class="form-control" placeholder="Votre nom complet">
+              <input type="text" formControlName="nom" [(ngModel)]="Register.nom" class="form-control" placeholder="Votre nom complet">
             </div>
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control" placeholder="Your Email">
+              <input type="email" formControlName="email" [(ngModel)]="Register.email" class="form-control" placeholder="Votre adresse mail">
             </div>
             <div class="form-group">
               <label>Mot de passe</label>
-              <input type="password" class="form-control" placeholder="Votre mot de passe">
+              <input type="password" formControlName="password" [(ngModel)]="Register.password" class="form-control" placeholder="Votre mot de passe">
             </div>
             <div class="form-group">
               <label>Confirmation de votre mot de passe</label>
-              <input type="password" class="form-control" placeholder="Confirmation de votre mot de pasee">
+              <input type="password" formControlName="confirmPassword" [(ngModel)]="Register.confirmPassword" class="form-control" placeholder="Confirmation de votre mot de pasee">
             </div>
 
             <div class="d-flex align-items-center">
-              <button type="submit" class="theme-btn w-100"><i class="pi pi-plane"></i> S'inscrire</button>
+              <button type="submit" class="theme-btn w-100"> S'inscrire <i class="pi pi-sign-in"></i></button>
             </div>
           </form>
           <div class="login-footer">

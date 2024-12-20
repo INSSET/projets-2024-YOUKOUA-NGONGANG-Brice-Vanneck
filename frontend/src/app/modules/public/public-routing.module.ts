@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import { ApiculteurComponent } from './apiculteur/apiculteur.component';
+import { AuthguardService } from '../../services/auth/authguard.service';
 
 const routes: Routes = [
   {
@@ -9,8 +10,13 @@ const routes: Routes = [
     component:HomeComponent
   },
   {
+    path:'accueil',
+    component:HomeComponent
+  },
+  {
     path:'apiculteur',
-    component:ApiculteurComponent
+    component:ApiculteurComponent,
+    canActivate:[AuthguardService]
   }
 ];
 
