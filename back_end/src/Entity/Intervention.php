@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(paginationMaximumItemsPerPage: 10,
+#[ApiResource(order: ['id' => 'DESC'],paginationMaximumItemsPerPage: 10,
     normalizationContext: ['groups' => ['intervention:read']],
     denormalizationContext: ['groups' => ['intervention:write']]),
     ApiFilter(SearchFilter::class,properties: ['libelle'=>'partial','ruche'=>'exact'])
@@ -29,6 +29,7 @@ class Intervention
     private ?string $libelle = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['intervention:read'])]
     private ?\DateTimeInterface $date = null;
     #[Groups(['intervention:read'])]
     #[ORM\ManyToOne(targetEntity: Ruche::class, inversedBy: 'interventions')]

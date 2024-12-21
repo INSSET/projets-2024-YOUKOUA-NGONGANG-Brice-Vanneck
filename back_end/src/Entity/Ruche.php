@@ -11,9 +11,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(paginationMaximumItemsPerPage: 10,
+#[ApiResource(order: ['id' => 'DESC'],
+    paginationMaximumItemsPerPage: 10,
     normalizationContext: ['groups' => ['ruche:read']], denormalizationContext: ['groups' => ['ruche:write']]),
-    ApiFilter(SearchFilter::class, properties: ['libelle' => 'partial'])
+    ApiFilter(SearchFilter::class, properties: ['libelle' => 'partial']),
+
 ]
 #[ORM\Entity(repositoryClass: RucheRepository::class)]
 class Ruche

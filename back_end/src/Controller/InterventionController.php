@@ -4,10 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Intervention;
 use App\Entity\Ruche;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -24,7 +22,7 @@ class InterventionController extends AbstractController
 
     }
 
-    #[Route('save', name: 'ruche_save', methods: ['POST'])]
+    #[Route('save', name: 'intervention_save', methods: ['POST'])]
     public function save(Request $request,EntityManagerInterface $entityManager)
     {
 
@@ -35,6 +33,12 @@ class InterventionController extends AbstractController
         $ruche = $rucheRepository->find($data['ruche_id']);
 
         $intervention->setLibelle($data['libelle']);
+        //$date = \DateTime::createFromFormat('d/m/Y', $data['date']);
+
+        //$date = date('Y-m-d H:i:s');
+
+        $intervention->setDate(new \DateTime());
+
         $intervention->setRuche($ruche);
 
         //$ruche->setUser($this->user);

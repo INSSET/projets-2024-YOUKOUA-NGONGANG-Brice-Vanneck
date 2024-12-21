@@ -4,11 +4,12 @@ import { FooterComponent } from "../../../shared/footer/footer.component";
 import { TableModule } from 'primeng/table';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
-import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { CommonModule, NgClass, NgIf, NgStyle } from '@angular/common';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import * as Leaflet from 'leaflet';
 import * as Leaflet2 from 'leaflet';
 import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { UserHelper } from '../../../shared/helpers/user';
@@ -17,17 +18,18 @@ Leaflet.Icon.Default.imagePath = 'assets/';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { InterventionService } from '../../../services/other/intervention.service';
 
 @Component({
   selector: 'app-apiculteur',
   standalone: true,
   imports: [NgIf,LeafletModule,
     NgStyle, NgClass,HeaderComponent, FooterComponent,TableModule,FormsModule,ReactiveFormsModule,ButtonModule,ToastModule,
-    DialogModule,SelectButtonModule,TooltipModule],
+    DialogModule,SelectButtonModule,TooltipModule,CalendarModule,CommonModule],
   templateUrl: './apiculteur.component.html',
   styleUrl: './apiculteur.component.scss',
   encapsulation: ViewEncapsulation.None,
-  providers:[RucheService,MessageService]
+  providers:[RucheService,MessageService,InterventionService]
 })
 export class ApiculteurComponent implements OnInit,AfterViewInit{
 
@@ -100,7 +102,8 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   intervention={
     id:null,
     libelle:"",
-    Date:new Date()
+    date:new Date(),
+    ruche:null
   }
 
 
@@ -113,10 +116,10 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
   interventionForm = this.formBuilder.group({
     libelle: new FormControl('', [Validators.required]),
-    date: new FormControl('', [Validators.required]),
   });
 
-  constructor(private formBuilder: FormBuilder,private rucheService:RucheService,private messageService:MessageService){
+  constructor(private formBuilder: FormBuilder,private rucheService:RucheService,private interventionService:InterventionService,
+    private messageService:MessageService){
 
   }
 
@@ -158,7 +161,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
           let ruh =data;
           ruh.interventions=[];
           ruh.recoltes=[];
-          this.rucheList.push(ruh);
+          this.rucheList.unshift(ruh);
           this.messageToast("Ruche enregistrée avec succès","Confirmation");
 
 
@@ -195,6 +198,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
   loadItemIntervention(event: any){
     console.log(event);
+
   }
 
   getRuches(){
@@ -211,6 +215,18 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     
   }
 
+  getIntervention(ruche_id:any){
+    this.loadingIntervention=true;
+    this.interventionService.all(ruche_id).subscribe(data=>{
+      this.interventionList=data?.member;
+      this.totalInterventionRecords=data?.totalItems;
+      console.log(data);
+
+      this.loadingIntervention=false;
+    });
+  }
+
+
 
   changeDisplay(){
     console.log("change display")
@@ -222,7 +238,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   editRuche(ruche:any){
     this.isUpdating=true;
     this.ruchedialog=true;
-    this.rucheForm.reset();
+    //this.rucheForm.reset();
 
     this.ruche.id=ruche.id;
     this.ruche.libelle=ruche.libelle;
@@ -230,6 +246,12 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     this.ruche.latitude=ruche.latitude;
 
     console.log(this.ruche);
+
+  }
+
+  addIntervention(){
+    this.interventionForm.reset();
+    this.addInterventionDialog=true;
 
   }
 
@@ -260,7 +282,6 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   }
 
 
- 
 
   onDialogShow() {
     if (this.mapDialog) {
@@ -274,13 +295,51 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
   openInterventionDialog(ruche:any){
     this.interventionDialog=true;
-
+    this.interventionList=[];
     this.ruche.id=ruche.id;
     this.ruche.libelle=ruche.libelle;
     this.ruche.longitude=ruche.longitude;
     this.ruche.latitude=ruche.latitude;
 
+    this.getIntervention(this.ruche.id);
+    
   }
+
+
+
+  saveIntervention(){
+    this.senddingRequest=true;
+    let interv={
+      libelle:this.intervention.libelle,
+      //date:this.intervention.date.getDay()+'/'+this.intervention.date.getMonth()+'/'+this.intervention.date.getFullYear(),
+      
+      ruche_id:this.ruche.id
+    }
+
+    console.log(interv);
+ 
+    this.interventionService.create(interv).subscribe(data=>{
+      if(data!=null){
+        console.log(data);
+        let int =data;
+       
+        this.interventionList.unshift(int);
+        this.messageToast("Intervention enregistrée avec succès","Confirmation");
+
+      }else{
+        //error
+        //we can also use status of response
+
+      }
+
+
+      this.addInterventionDialog=false;
+      this.senddingRequest=false;
+    });
+
+  }
+
+
 
 
   clearMarkersDialog() {

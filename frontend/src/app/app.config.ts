@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TokenInterceptor } from './services/auth/tokenInterceptor.service';
 import { ErrorInterceptor } from './services/auth/errorInterceptor';
+import { CommonModule } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),

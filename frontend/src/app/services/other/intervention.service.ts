@@ -26,15 +26,11 @@ export class InterventionService {
   }
 
 
-  all(rucheid:any,page=1,libelle=''): Observable<any> {
+  all(rucheid:any,page=1): Observable<any> {
 
    // http://127.0.0.1:8000/api/ruches?page=1&libelle=une
 
-    if(libelle!=''){
-      return this.http.get(`${this.rootURL}?page=${page}&libelle=${libelle}&ruche=/interventions/${rucheid}`);
-    }else{
-      return this.http.get(`${this.rootURL}?page=${page}&ruche=/interventions/${rucheid}`);
-    }
+   return this.http.get(`${this.rootURL}?page=${page}&ruche=${rucheid}`);
 
   }
 

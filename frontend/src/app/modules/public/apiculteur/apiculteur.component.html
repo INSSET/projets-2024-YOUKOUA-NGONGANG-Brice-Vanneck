@@ -170,14 +170,20 @@
 </p-dialog>
 
 
-<p-dialog [baseZIndex]="999999990" [header]="'Interventions de la ruche '+this.ruche.libelle"  [closable]="true" [modal]="true"    [(visible)]="interventionDialog" [style]="{ width: '70%', height:'100%'}">
+<p-dialog [baseZIndex]="999999990" [header]="'Interventions de la ruche \''+this.ruche.libelle+'\''"  [closable]="true" [modal]="true"    [(visible)]="interventionDialog" [style]="{ width: '67%', height:'100%'}">
 
  
  
   <ng-template pTemplate="body">
 
-    <div class="container w-75" >
-      <div class="mt-4 text-center">
+    <div class="container" >
+      <div class="d-flex mt-1 ">
+        <button  type="button"  class="btn btn-secondary">
+          Production
+        </button>
+      </div>
+
+      <div class="mt-2 text-center">
         <p-table #dt [rows]="10" [loading]="loadingIntervention" [rowHover]="true" [paginator]="true" [value]="interventionList"
         styleClass="p-datatable-sm p-datatable-striped"
         responsiveLayout="scroll"
@@ -192,24 +198,23 @@
           <ng-template pTemplate="caption">
           <div class="d-flex p-ai-center justify-content-between">
           <h5 class="p-m-0">Liste des interventions</h5>
-    
+            
           </div>
           </ng-template>
-    
+          
           <ng-template pTemplate="header">
           <tr>
-          <th>Intervention</th>
-          <th>Date</th>
+          <th>Libellé de l'intervention</th>
+          <th>Date d'enregistrement</th>
           </tr>
           </ng-template>
-    
+          
     
           <ng-template pTemplate="body" let-dataItem>
-    
-          <tr>
-            <td>{{dataItem.libelle}}</td>
-            <td>{{dataItem.date}}</td>
-          </tr>
+            <tr>
+              <td class="text-center">{{dataItem.libelle}}</td>
+              <td class="text-center">{{dataItem.date| date:'dd/MM/yyyy à HH:mm' }}</td>
+            </tr>
           </ng-template>
     
     
@@ -221,10 +226,12 @@
 
 
   <ng-template pTemplate="footer">
-    <div class="d-flex mt-4 ">
-      <button  type="button"  class="btn btn-primary">
-        Ajouter intervention
-      </button>
+    <div class="container">
+      <div class=" d-flex mt-4 ">
+        <button  type="button"  class="btn btn-primary" (click)="addIntervention()">
+          Ajouter intervention
+        </button>
+      </div>
     </div>
   </ng-template>
 
@@ -234,6 +241,32 @@
 <!-- Modal add intervention-->
 
 
+<p-dialog  [header]="'Création d\'une intervention'" [position]="'top'"  [baseZIndex]="999999992"  [closable]="true" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '25rem' }">
+
+  <form [formGroup]="interventionForm">
+
+    <div class="form-group">
+      <label for="libelle" class="col-form-label">Libellé de l'intervention:</label>
+      <input type="text" class="form-control" formControlName="libelle" [(ngModel)]="this.intervention.libelle" name="libelle" id="libelle" required placeholder="Intervention">
+    </div>
+
+    <div class="d-flex mt-4 justify-content-center align-items-center ">
+
+      <button type="reset" [disabled]="senddingRequest" class="btn btn-light  btn_effacer me-2" (click)="this.addInterventionDialog=false">Fermer</button>
+
+      <button  type="button" (click)="saveIntervention()" [disabled]="interventionForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
+        <span *ngIf="!senddingRequest">Enregister</span>
+        <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </button>
+    </div>
+  </form>
+
+</p-dialog>
+
+
+<!--
 <p-dialog  [header]="'Création d\'une intervention'" [baseZIndex]="999999992"  [closable]="true" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '35rem' }">
 
   <form [formGroup]="interventionForm">
@@ -245,7 +278,12 @@
 
     <div class="form-group">
       <label  class="col-form-label">Date:</label>
-      
+      <div class="mt-1 w-100">
+        <p-calendar [style]="{'width':'100%'}" appendTo="body" formControlName="date" [(ngModel)]="this.intervention.date" dateFormat="dd/mm/yy"  [iconDisplay]="'input'" 
+        [showIcon]="true" 
+        inputId="icondisplay" />
+      </div>
+
    
     </div>
 
@@ -253,7 +291,7 @@
 
       <button type="reset" [disabled]="senddingRequest" class="btn btn-light  btn_effacer me-2" (click)="this.addInterventionDialog=false">Fermer</button>
 
-      <button  type="button" [disabled]="interventionForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
+      <button  type="button" (click)="saveIntervention()" [disabled]="interventionForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
         <span *ngIf="!senddingRequest">Enregister</span>
         <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
           <span class="sr-only"></span>
@@ -265,3 +303,4 @@
   </form>
 
 </p-dialog>
+-->
