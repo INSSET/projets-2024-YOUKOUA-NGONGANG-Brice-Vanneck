@@ -10,14 +10,14 @@ import * as Leaflet from 'leaflet';
 import * as Leaflet2 from 'leaflet';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { UserHelper } from '../../../shared/helpers/user';
 import { RucheService } from '../../../services/other/ruche.service';
 Leaflet.Icon.Default.imagePath = 'assets/';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { InterventionService } from '../../../services/other/intervention.service';
 
 @Component({
@@ -25,11 +25,11 @@ import { InterventionService } from '../../../services/other/intervention.servic
   standalone: true,
   imports: [NgIf,LeafletModule,
     NgStyle, NgClass,HeaderComponent, FooterComponent,TableModule,FormsModule,ReactiveFormsModule,ButtonModule,ToastModule,
-    DialogModule,SelectButtonModule,TooltipModule,CalendarModule,CommonModule],
+    DialogModule,SelectButtonModule,TooltipModule,CalendarModule,CommonModule,ConfirmDialogModule],
   templateUrl: './apiculteur.component.html',
   styleUrl: './apiculteur.component.scss',
   encapsulation: ViewEncapsulation.None,
-  providers:[RucheService,MessageService,InterventionService]
+  providers:[RucheService,MessageService,InterventionService,ConfirmationService]
 })
 export class ApiculteurComponent implements OnInit,AfterViewInit{
 
@@ -119,7 +119,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   });
 
   constructor(private formBuilder: FormBuilder,private rucheService:RucheService,private interventionService:InterventionService,
-    private messageService:MessageService){
+    private messageService:MessageService,private confirmationService: ConfirmationService,){
 
   }
 
@@ -211,9 +211,38 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
       this.loadingRuche=false;
     });
-    
-    
   }
+
+  deleteRuche(dataItem:any,event: Event) {
+    console.log("delete call");
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Etes-vous sûr de vouloir supprimer cette ruche ?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel:"Oui supprimer",
+        rejectLabel:"Non",
+        acceptIcon:"none",
+        rejectIcon:"none",
+        rejectButtonStyleClass:"p-button-text",
+        accept: () => {
+
+            this.rucheService.delete(dataItem.id).subscribe(response=>{
+              let status = response.status;
+              if(status==204){
+                this.interventionList = this.rucheList.filter(x => x.id!=dataItem.id);
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Ruche supprimée avec succès' });
+              }else{
+                this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Problème rencontré lors de la suppression', life: 3000 });
+              }
+
+            });
+        },
+        reject: () => {
+            this.messageService.add({ severity: 'error', summary: 'Annulation', detail: 'Suppression annulée', life: 3000 });
+        }
+    });
+}
 
   getIntervention(ruche_id:any){
     this.loadingIntervention=true;

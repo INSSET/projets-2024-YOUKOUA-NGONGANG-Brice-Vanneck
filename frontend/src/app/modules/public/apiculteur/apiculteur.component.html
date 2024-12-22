@@ -19,7 +19,13 @@
       <div class="mt-4 d-flex" style="justify-content: space-between;">
 
         <button class="btn btn-primary" (click)="addRuche()"> Ajouter ruche</button>
-
+        <button 
+        pButton 
+        pRipple 
+        label="Submit" 
+        class="p-button-success">
+    </button>
+    
         <div style="float: right;">
           <p-selectButton [options]="stateOptions" (ngModelChange)="changeDisplay()"  [(ngModel)]="displayType" optionLabel="label" optionValue="value" />
         
@@ -78,7 +84,7 @@
 
                   <button pButton pRipple icon="pi pi-pencil" class="p-button p-button-primary mr-2" pTooltip="Modifier" tooltipPosition="top"
                           (click)="editRuche(dataItem)"></button>
-                  <button  pButton pRipple icon="pi pi-trash" class="p-button p-button-danger" pTooltip="Supprimer" tooltipPosition="top"
+                  <button (click)="deleteRuche(dataItem,$event)" pButton pRipple icon="pi pi-trash" class="p-button p-button-danger" pTooltip="Supprimer" tooltipPosition="top"
                           ></button>
                 </td>
 
@@ -265,6 +271,8 @@
 
 </p-dialog>
 
+<p-confirmDialog [baseZIndex]="999999990" [style]="{width: '450px'}"></p-confirmDialog>
+
 
 <!--
 <p-dialog  [header]="'Création d\'une intervention'" [baseZIndex]="999999992"  [closable]="true" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '35rem' }">
@@ -304,3 +312,5 @@
 
 </p-dialog>
 -->
+
+
