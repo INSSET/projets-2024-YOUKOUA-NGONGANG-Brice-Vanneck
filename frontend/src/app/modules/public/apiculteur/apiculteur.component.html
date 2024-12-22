@@ -1,4 +1,7 @@
 
+<p-toast></p-toast>
+
+
 <div id="wrapper_full" class="content_all_warpper">
   <!----page-header----->
 
@@ -28,7 +31,7 @@
       <div class="row mt-2 mb-4">
 
         <div *ngIf="displayType=='table'">
-          <p-table #dt [rows]="10" [loading]="loading" [rowHover]="true" [paginator]="true" [value]="rucheList" sortMode="multiple"
+          <p-table #dt [rows]="10" [loading]="loadingRuche" [rowHover]="true" [paginator]="true" [value]="rucheList" sortMode="multiple"
                    styleClass="p-datatable-sm p-datatable-striped"
                    responsiveLayout="scroll"
                    [lazy]="true"
@@ -38,7 +41,7 @@
                    [responsive]="true"
                    currentPageReportTemplate="Affiche {first} à {last} sur {totalRecords} entrées"
                    [showCurrentPageReport]="true"
-                   [globalFilterFields]="['libelle','nb_intervention','created_at']" >
+                   [globalFilterFields]="['libelle']" >
 
 
             <ng-template pTemplate="caption">
@@ -54,19 +57,34 @@
 
             <ng-template pTemplate="header">
               <tr>
-                <th>Nom</th>
+                <th>Nom de la ruche</th>
                 <th>Nombre d'intervention</th>
-                <th>Date de création </th>
+                <th>Recolte</th>
                 <th>Actions</th>
               </tr>
             </ng-template>
 
 
-            <ng-template pTemplate="body"  let-dataItem>
+            <ng-template pTemplate="body" let-dataItem>
 
+              <tr>
+                <td>{{dataItem.libelle}}</td>
+                <td>{{dataItem?.interventions.length}}</td>
+                <td>{{dataItem?.recoltes.length}} </td>
 
+                <td>
+                  <button  pButton pRipple icon="pi pi-eye" (click)="openInterventionDialog(dataItem)" class="p-button p-button-info" pTooltip="consulter" tooltipPosition="top"
+                  ></button>
 
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button p-button-primary mr-2" pTooltip="Modifier" tooltipPosition="top"
+                          (click)="editRuche(dataItem)"></button>
+                  <button  pButton pRipple icon="pi pi-trash" class="p-button p-button-danger" pTooltip="Supprimer" tooltipPosition="top"
+                          ></button>
+                </td>
+
+              </tr>
             </ng-template>
+
 
           </p-table>
 
@@ -93,25 +111,24 @@
 <!-- Modal of this page-->
 
 
-<p-dialog  [header]="'Création d\'une ruche'" [baseZIndex]="999999990"  [closable]="true" [modal]="true"    [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
+<p-dialog  [header]="isUpdating?'Modification d\'une ruche':'Création d\'une ruche'" [baseZIndex]="999999990"  [closable]="true" [modal]="true"    [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
 
   <form [formGroup]="rucheForm">
 
     <div class="form-group">
       <label for="nom" class="col-form-label">Nom de la ruche:</label>
-      <input type="text" class="form-control" formControlName="nom" [(ngModel)]="this.ruche.nom" name="nom" id="nom" required placeholder="Nom de la ruche">
+      <input type="text" class="form-control" formControlName="nom" [(ngModel)]="this.ruche.libelle" name="nom" id="nom" required placeholder="Nom de la ruche">
     </div>
 
     <div class="form-group">
       <label  class="col-form-label">Position:</label>
       <a class="d-flex float-end choose-map" href="javascript:void(0)" (click)="openPositionDialog()"> choisir sur la carte </a>
       <div class="row">
-        <div class="col-6">
-          <input type="text" class="form-control" formControlName="longitude" [(ngModel)]="this.ruche.lon" name="longitude" id="position" required placeholder="longitude">
-
+        <div class="col-6 ps-0">
+          <input type="text" class="form-control" formControlName="longitude" [(ngModel)]="this.ruche.longitude" name="longitude" id="position" required placeholder="longitude">
         </div>
-        <div class="col-6">
-          <input type="text" class="form-control" formControlName="latitude" [(ngModel)]="this.ruche.lat" name="latitude" id="position" required placeholder="latitude">
+        <div class="col-6 pe-0">
+          <input type="text" class="form-control" formControlName="latitude" [(ngModel)]="this.ruche.latitude" name="latitude" id="position" required placeholder="latitude">
         </div>
 
       </div>
@@ -127,7 +144,6 @@
         <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
           <span class="sr-only"></span>
         </div>
-
 
       </button>
     </div>
@@ -152,3 +168,139 @@
   </div>
 
 </p-dialog>
+
+
+<p-dialog [baseZIndex]="999999990" [header]="'Interventions de la ruche \''+this.ruche.libelle+'\''"  [closable]="true" [modal]="true"    [(visible)]="interventionDialog" [style]="{ width: '67%', height:'100%'}">
+
+ 
+ 
+  <ng-template pTemplate="body">
+
+    <div class="container" >
+      <div class="d-flex mt-1 ">
+        <button  type="button"  class="btn btn-secondary">
+          Production
+        </button>
+      </div>
+
+      <div class="mt-2 text-center">
+        <p-table #dt [rows]="10" [loading]="loadingIntervention" [rowHover]="true" [paginator]="true" [value]="interventionList"
+        styleClass="p-datatable-sm p-datatable-striped"
+        responsiveLayout="scroll"
+        [lazy]="true"
+        [totalRecords]="totalInterventionRecords"
+        (onLazyLoad)="loadItemIntervention($event)"
+        [resizableColumns]="true"
+        [responsive]="true"
+        currentPageReportTemplate="Affiche {first} à {last} sur {totalRecords} entrées"
+        [showCurrentPageReport]="true" >
+    
+          <ng-template pTemplate="caption">
+          <div class="d-flex p-ai-center justify-content-between">
+          <h5 class="p-m-0">Liste des interventions</h5>
+            
+          </div>
+          </ng-template>
+          
+          <ng-template pTemplate="header">
+          <tr>
+          <th>Libellé de l'intervention</th>
+          <th>Date d'enregistrement</th>
+          </tr>
+          </ng-template>
+          
+    
+          <ng-template pTemplate="body" let-dataItem>
+            <tr>
+              <td class="text-center">{{dataItem.libelle}}</td>
+              <td class="text-center">{{dataItem.date| date:'dd/MM/yyyy à HH:mm' }}</td>
+            </tr>
+          </ng-template>
+    
+    
+        </p-table>
+      </div>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="footer">
+    <div class="container">
+      <div class=" d-flex mt-4 ">
+        <button  type="button"  class="btn btn-primary" (click)="addIntervention()">
+          Ajouter intervention
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+
+</p-dialog>
+
+<!-- Modal add intervention-->
+
+
+<p-dialog  [header]="'Création d\'une intervention'" [position]="'top'"  [baseZIndex]="999999992"  [closable]="true" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '25rem' }">
+
+  <form [formGroup]="interventionForm">
+
+    <div class="form-group">
+      <label for="libelle" class="col-form-label">Libellé de l'intervention:</label>
+      <input type="text" class="form-control" formControlName="libelle" [(ngModel)]="this.intervention.libelle" name="libelle" id="libelle" required placeholder="Intervention">
+    </div>
+
+    <div class="d-flex mt-4 justify-content-center align-items-center ">
+
+      <button type="reset" [disabled]="senddingRequest" class="btn btn-light  btn_effacer me-2" (click)="this.addInterventionDialog=false">Fermer</button>
+
+      <button  type="button" (click)="saveIntervention()" [disabled]="interventionForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
+        <span *ngIf="!senddingRequest">Enregister</span>
+        <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </button>
+    </div>
+  </form>
+
+</p-dialog>
+
+
+<!--
+<p-dialog  [header]="'Création d\'une intervention'" [baseZIndex]="999999992"  [closable]="true" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '35rem' }">
+
+  <form [formGroup]="interventionForm">
+
+    <div class="form-group">
+      <label for="libelle" class="col-form-label">Libellé de l'intervention:</label>
+      <input type="text" class="form-control" formControlName="libelle" [(ngModel)]="this.intervention.libelle" name="libelle" id="libelle" required placeholder="Intervention">
+    </div>
+
+    <div class="form-group">
+      <label  class="col-form-label">Date:</label>
+      <div class="mt-1 w-100">
+        <p-calendar [style]="{'width':'100%'}" appendTo="body" formControlName="date" [(ngModel)]="this.intervention.date" dateFormat="dd/mm/yy"  [iconDisplay]="'input'" 
+        [showIcon]="true" 
+        inputId="icondisplay" />
+      </div>
+
+   
+    </div>
+
+    <div class="d-flex mt-4 justify-content-center align-items-center ">
+
+      <button type="reset" [disabled]="senddingRequest" class="btn btn-light  btn_effacer me-2" (click)="this.addInterventionDialog=false">Fermer</button>
+
+      <button  type="button" (click)="saveIntervention()" [disabled]="interventionForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
+        <span *ngIf="!senddingRequest">Enregister</span>
+        <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
+          <span class="sr-only"></span>
+        </div>
+
+
+      </button>
+    </div>
+  </form>
+
+</p-dialog>
+-->

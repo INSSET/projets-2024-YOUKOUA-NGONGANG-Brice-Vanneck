@@ -2,20 +2,30 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RecolteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(paginationMaximumItemsPerPage: 10,
+    normalizationContext: ['groups' => ['intervention:read']],
+    denormalizationContext: ['groups' => ['intervention:write']]),
+    ApiFilter(SearchFilter::class,properties: ['ruche'=>'exact'])
+
+]
 #[ORM\Entity(repositoryClass: RecolteRepository::class)]
 class Recolte
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['recolte:read', 'ruche:read'])]
     private ?int $id = null;
 
+    #[Groups(['recolte:read', 'ruche:read'])]
     #[ORM\Column]
     private ?float $poids = null;
 
