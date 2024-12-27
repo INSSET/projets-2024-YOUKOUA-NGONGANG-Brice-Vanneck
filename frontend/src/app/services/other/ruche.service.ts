@@ -22,7 +22,7 @@ export class RucheService {
   }
 
   delete(data: any): Observable<any>{
-    return this.http.delete<any>(`${this.rootURL}${data}`);
+    return this.http.delete<any>(`${this.rootURL}${data}`,{ observe: 'response' });
   }
 
 

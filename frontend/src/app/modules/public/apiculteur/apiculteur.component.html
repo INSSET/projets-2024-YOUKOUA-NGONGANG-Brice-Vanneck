@@ -1,14 +1,9 @@
 
-<p-toast></p-toast>
+
 
 
 <div id="wrapper_full" class="content_all_warpper">
-  <!----page-header----->
-
-  <!----preloader----->
-
-  <!----preloader end----->
-  <!----header----->
+              
   <app-header></app-header>
   <!----header----->
 
@@ -19,7 +14,7 @@
       <div class="mt-4 d-flex" style="justify-content: space-between;">
 
         <button class="btn btn-primary" (click)="addRuche()"> Ajouter ruche</button>
-
+            
         <div style="float: right;">
           <p-selectButton [options]="stateOptions" (ngModelChange)="changeDisplay()"  [(ngModel)]="displayType" optionLabel="label" optionValue="value" />
         
@@ -30,7 +25,7 @@
 
       <div class="row mt-2 mb-4">
 
-        <div *ngIf="displayType=='table'">
+        <div *ngIf="displayType=='table' || displayType==null">
           <p-table #dt [rows]="10" [loading]="loadingRuche" [rowHover]="true" [paginator]="true" [value]="rucheList" sortMode="multiple"
                    styleClass="p-datatable-sm p-datatable-striped"
                    responsiveLayout="scroll"
@@ -78,7 +73,7 @@
 
                   <button pButton pRipple icon="pi pi-pencil" class="p-button p-button-primary mr-2" pTooltip="Modifier" tooltipPosition="top"
                           (click)="editRuche(dataItem)"></button>
-                  <button  pButton pRipple icon="pi pi-trash" class="p-button p-button-danger" pTooltip="Supprimer" tooltipPosition="top"
+                  <button (click)="deleteRuche(dataItem,$event)" pButton pRipple icon="pi pi-trash" class="p-button p-button-danger" pTooltip="Supprimer" tooltipPosition="top"
                           ></button>
                 </td>
 
@@ -105,13 +100,16 @@
 
   </div>
 
+
+
+
 </div>
 
 <app-footer></app-footer>
 <!-- Modal of this page-->
 
 
-<p-dialog  [header]="isUpdating?'Modification d\'une ruche':'Création d\'une ruche'" [baseZIndex]="999999990"  [closable]="true" [modal]="true"    [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
+<p-dialog  [header]="isUpdating?'Modification d\'une ruche':'Création d\'une ruche'" [baseZIndex]="999999990"  [closable]="true" [modal]="true"  [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
 
   <form [formGroup]="rucheForm">
 
@@ -152,7 +150,7 @@
 </p-dialog>
 
 
-<p-dialog [baseZIndex]="999999991" [header]="'Choisir une position sur la carte'" (onShow)="onDialogShow()" [closable]="true" [modal]="true"    [(visible)]="positionDialog" [style]="{ width: '70%', height:'80%'}">
+<p-dialog [baseZIndex]="999999991" [header]="'Choisir une position sur la carte'" (onShow)="onDialogShow()"  [closable]="true" [modal]="true"  [(visible)]="positionDialog" [style]="{ width: '70%', height:'80%'}">
 
   <div *ngIf="positionDialog" class="dialog-map-container" leaflet
     [leafletOptions]="optionsDialog"
@@ -170,9 +168,20 @@
 </p-dialog>
 
 
-<p-dialog [baseZIndex]="999999990" [header]="'Interventions de la ruche \''+this.ruche.libelle+'\''"  [closable]="true" [modal]="true"    [(visible)]="interventionDialog" [style]="{ width: '67%', height:'100%'}">
+<p-dialog [baseZIndex]="999999990"  (onHide)="onDialogClose()" [modal]="true"  [closable]="false"   [(visible)]="interventionDialog" [style]="{ width: '67%', height:'100%'}">
 
- 
+  <ng-template pTemplate="header">
+
+    <div class="w-100">
+      <h5>Interventions de la ruche '<span class="text-success">{{this.ruche.libelle}}</span>'</h5>
+    </div>
+    <div class="w-100">
+      <div class="d-flex justify-content-end"> 
+        <button type="button" style="border-radius: 50%;" (click)="onDialogClose()" class="btn btn-sm btn-light" ><i class="pi pi-times"></i></button> 
+      </div>
+    </div>
+    
+  </ng-template>
  
   <ng-template pTemplate="body">
 
@@ -241,7 +250,7 @@
 <!-- Modal add intervention-->
 
 
-<p-dialog  [header]="'Création d\'une intervention'" [position]="'top'"  [baseZIndex]="999999992"  [closable]="true" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '25rem' }">
+<p-dialog  [header]="'Création d\'une intervention'" [position]="'top'"  [baseZIndex]="999999992"  [closable]="false" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '25rem' }">
 
   <form [formGroup]="interventionForm">
 
@@ -264,6 +273,8 @@
   </form>
 
 </p-dialog>
+
+<p-confirmDialog [baseZIndex]="999999990" [style]="{width: '450px'}"></p-confirmDialog>
 
 
 <!--
@@ -304,3 +315,6 @@
 
 </p-dialog>
 -->
+
+
+<p-toast [baseZIndex]="999999999"></p-toast>

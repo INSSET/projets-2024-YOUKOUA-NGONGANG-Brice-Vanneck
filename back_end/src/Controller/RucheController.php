@@ -15,7 +15,7 @@ class RucheController extends AbstractController
 
     private $rucheRepository;
 
-   private $userRepository;
+    private $userRepository;
     private $user;
     public function __construct(EntityManagerInterface $entityManager,Security $security)
     {

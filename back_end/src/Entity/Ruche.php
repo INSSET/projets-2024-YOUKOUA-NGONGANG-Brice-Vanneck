@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(order: ['id' => 'DESC'],
-    paginationMaximumItemsPerPage: 10,
     normalizationContext: ['groups' => ['ruche:read']], denormalizationContext: ['groups' => ['ruche:write']]),
     ApiFilter(SearchFilter::class, properties: ['libelle' => 'partial']),
 
@@ -41,12 +40,12 @@ class Ruche
     #[ORM\Column(type: Types::DECIMAL, precision: 20, scale: 16, nullable: true)]
     private ?string $latitude = null;
 
-    #[ORM\OneToMany(targetEntity: Intervention::class, mappedBy: 'ruche')]
+    #[ORM\OneToMany(targetEntity: Intervention::class, mappedBy: 'ruche',cascade: ['remove'],orphanRemoval: true)]
     #[Groups(['ruche:read'])]
     private Collection $interventions;
 
     #[Groups(['ruche:read'])]
-    #[ORM\OneToMany(targetEntity: Recolte::class, mappedBy: 'ruche')]
+    #[ORM\OneToMany(targetEntity: Recolte::class, mappedBy: 'ruche',cascade: ['remove'],orphanRemoval: true)]
     private Collection $recoltes;
 
     public function __construct()

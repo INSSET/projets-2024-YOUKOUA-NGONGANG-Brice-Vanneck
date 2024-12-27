@@ -1,22 +1,16 @@
 @import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
 
-/* You can add global styles to this file, and also import other style files */
-/*
-.bg-slide{
-  background-image: url("assets/img/slider/slider-1.jpg");
+
+/* Order */
+@layer reset, primeng;
+
+@layer reset {
+    button,
+    input {
+        border-radius: 5px;
+    }
 }
-
-.login-footer a:hover{
-  cursor: pointer;
-}
-
-
-.btn{
-  border-radius: 50px !important;
-
-}
-
-*/
 
 
 
@@ -46,10 +40,19 @@
 }
 
 .pi {
-  //font-size: .8rem;
+  font-size: .8rem;
 }
+
 .p-button.p-button-icon-only{
   width: 1.5rem;
   height: 1.5rem;
   margin-left: 10px;
+  border-radius: 5px;
 }
+
+.select_date{
+  width: 100%;
+}
+
+
+
