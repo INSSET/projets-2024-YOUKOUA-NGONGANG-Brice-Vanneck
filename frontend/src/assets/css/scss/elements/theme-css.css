@@ -1463,7 +1463,7 @@ ul {
 
 .footer_sticky_body .content_all_warpper {
   position: relative;
-  z-index: 99999;
+  /*z-index: 99999;*/
 }
 
 .fancybox-container {

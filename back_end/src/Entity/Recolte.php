@@ -36,6 +36,7 @@ class Recolte
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\ManyToOne(targetEntity: Ruche::class, inversedBy: 'recoltes')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Ruche $ruche;
 
     public function getId(): ?int

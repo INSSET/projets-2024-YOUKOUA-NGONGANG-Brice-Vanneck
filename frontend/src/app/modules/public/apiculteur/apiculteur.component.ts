@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HeaderComponent } from "../../../shared/header/header.component";
 import { FooterComponent } from "../../../shared/footer/footer.component";
 import { TableModule } from 'primeng/table';
@@ -40,7 +40,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   loadingIntervention=false;
   ruchedialog=false;
   positionDialog=false;
-  interventionDialog=false;
+  interventionDialog: boolean = false;
   addInterventionDialog=false;
 
   limitItem:any;
@@ -67,7 +67,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       })
     ],
-    zoom: 16,
+    zoom: 9,
     center: { lat: 48.8566, lng: 2.3522 }
   }
 
@@ -96,7 +96,9 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     id:null,
     libelle:"",
     longitude:null,
-    latitude:null
+    latitude:null,
+  interventions:Array(),
+    recoltes:[]
   }
 
   intervention={
@@ -119,7 +121,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   });
 
   constructor(private formBuilder: FormBuilder,private rucheService:RucheService,private interventionService:InterventionService,
-    private messageService:MessageService,private confirmationService: ConfirmationService,){
+    private messageService:MessageService,private confirmationService: ConfirmationService,private cdr: ChangeDetectorRef){
 
   }
 
@@ -162,6 +164,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
           ruh.interventions=[];
           ruh.recoltes=[];
           this.rucheList.unshift(ruh);
+          this.appendToMap(data,this.rucheList.length-1);
           this.messageToast("Ruche enregistrée avec succès","Confirmation");
 
 
@@ -187,6 +190,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
   fermerRuche(){
     this.ruchedialog=false;
+    this.cdr.detectChanges();
   }
 
 
@@ -210,6 +214,8 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
       console.log(data)
 
       this.loadingRuche=false;
+      this.initMarkers();
+      this.cdr.detectChanges();
     });
   }
 
@@ -230,7 +236,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
             this.rucheService.delete(dataItem.id).subscribe(response=>{
               let status = response.status;
               if(status==204){
-                this.interventionList = this.rucheList.filter(x => x.id!=dataItem.id);
+                this.rucheList = this.rucheList.filter(x => x.id!=dataItem.id);
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Ruche supprimée avec succès' });
               }else{
                 this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Problème rencontré lors de la suppression', life: 3000 });
@@ -250,8 +256,10 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
       this.interventionList=data?.member;
       this.totalInterventionRecords=data?.totalItems;
       console.log(data);
+      
 
       this.loadingIntervention=false;
+      this.cdr.detectChanges();
     });
   }
 
@@ -262,11 +270,13 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     if(this.displayType=='map'){
 
     }
+    //console.log(this.displayType);
   }
 
   editRuche(ruche:any){
     this.isUpdating=true;
     this.ruchedialog=true;
+    this.cdr.detectChanges();
     //this.rucheForm.reset();
 
     this.ruche.id=ruche.id;
@@ -281,33 +291,51 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   addIntervention(){
     this.interventionForm.reset();
     this.addInterventionDialog=true;
-
+    this.cdr.detectChanges();
   }
 
 
 
   initMarkers() {
-    const initialMarkers = [
-      {
-        position: { lat: 28.625485, lng: 79.821091 },
-        draggable: true
-      },
-      {
-        position: { lat: 28.625293, lng: 79.817926 },
-        draggable: false
-      },
-      {
-        position: { lat: 28.625182, lng: 79.81464 },
-        draggable: true
-      }
-    ];
-    for (let index = 0; index < initialMarkers.length; index++) {
-      const data = initialMarkers[index];
-      const marker = this.generateMarker(data, index);
-      marker.addTo(this.map).bindPopup(`<b>${data.position.lat},  ${data.position.lng}</b>`);
-      this.map.panTo(data.position);
-      this.markers.push(marker)
+
+    for (let index = 0; index < this.rucheList.length; index++) {
+      const data = this.rucheList[index];
+      this.appendToMap(data,index);
     }
+
+  }
+
+
+
+  appendToMap(data:any,index:number){
+    const marker = this.generateMarker(data, index);
+    
+        const popupContent = `
+            <b>Ruche:</b> <span>${data.libelle}</span>
+           <span class="ms-4">
+              <button id="btn-${index}" class="p-button p-button-info btn-sm">
+                  <i class="pi pi-eye"></i>
+              </button>
+           </span>
+        `;
+
+        // Ajoutez la popup au marqueur
+        marker.addTo(this.map).bindPopup(popupContent);
+
+        // Attachez un gestionnaire à l'événement popupopen
+        marker.on('popupopen', () => {
+            const button = document.getElementById(`btn-${index}`);
+            if (button) {
+              button.addEventListener('click', (e) => {
+                this.openInterventionDialog(data); // Conserve le contexte correct
+            });
+            } else {
+                console.error(`Bouton non trouvé pour l'index ${index}`);
+            }
+        });
+
+        this.map.panTo({ lat: data.latitude, lng: data.longitude });
+        this.markers.push(marker);
   }
 
 
@@ -321,18 +349,30 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     }
   }
 
+  onDialogClose(){
+    console.log("close")
+    this.interventionDialog=false;
+    this.cdr.detectChanges();
+    console.log('end close');
+  }
+  
 
-  openInterventionDialog(ruche:any){
-    this.interventionDialog=true;
-    this.interventionList=[];
-    this.ruche.id=ruche.id;
-    this.ruche.libelle=ruche.libelle;
-    this.ruche.longitude=ruche.longitude;
-    this.ruche.latitude=ruche.latitude;
+  openInterventionDialog(ruche: any) {
+    console.log("openInterventionDialog appelé avec :", ruche);
+    console.log("this.interventionDialog avant :", this.interventionDialog);
+
+    this.interventionDialog = true;
+    this.cdr.detectChanges();
+    this.interventionList = [];
+    this.ruche.id = ruche.id;
+    this.ruche.libelle = ruche.libelle;
+    this.ruche.longitude = ruche.longitude;
+    this.ruche.latitude = ruche.latitude;
 
     this.getIntervention(this.ruche.id);
-    
-  }
+    this.cdr.detectChanges();
+    console.log("this.interventionDialog après :", this.interventionDialog);
+}
 
 
 
@@ -353,6 +393,8 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
         let int =data;
        
         this.interventionList.unshift(int);
+        this.ruche.interventions.unshift(int);
+        this.rucheList.filter(x=>x.id==this.ruche.id)[0].interventions=this.interventionList;
         this.messageToast("Intervention enregistrée avec succès","Confirmation");
 
       }else{
@@ -364,6 +406,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
       this.addInterventionDialog=false;
       this.senddingRequest=false;
+      this.cdr.detectChanges();
     });
 
   }
@@ -393,9 +436,8 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     detail: message,
     life: 3000
   });
+
  }
-
-
 
 
 
@@ -406,7 +448,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
 
  generateMarker(data: any, index: number) {
-  return Leaflet.marker(data.position, { draggable: data.draggable })
+  return Leaflet.marker({ lat: data.latitude, lng: data.longitude }, { draggable: true })
     .on('click', (event) => this.markerClicked(event, index))
     .on('dragend', (event) => this.markerDragEnd(event, index));
 }
@@ -425,7 +467,9 @@ markerClicked($event: any, index: number) {
 }
 
 markerDragEnd($event: any, index: number) {
-  console.log($event.target.getLatLng());
+  //console.log($event.target.getLatLng());
+
+  
 }
 
 openPositionDialog(){

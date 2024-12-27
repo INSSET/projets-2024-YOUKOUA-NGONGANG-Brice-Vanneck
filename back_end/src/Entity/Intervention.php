@@ -33,6 +33,7 @@ class Intervention
     private ?\DateTimeInterface $date = null;
     #[Groups(['intervention:read'])]
     #[ORM\ManyToOne(targetEntity: Ruche::class, inversedBy: 'interventions')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Ruche $ruche;
 
 
