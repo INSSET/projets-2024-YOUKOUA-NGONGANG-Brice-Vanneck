@@ -16,8 +16,9 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(request).pipe(catchError(err => {
+        console.log(err);
 
-      if ([401].includes(err.status) && UserHelper.isConnect()) {
+      if (String(err.error.message).includes('Expired JWT Token') && UserHelper.isConnect()) {
         return this.http.post<any>(`${this.rootURL}token/refresh`, { 
             refresh_token: UserHelper.getUser().refresh_token 
         }).pipe(

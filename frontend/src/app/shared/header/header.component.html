@@ -7,7 +7,7 @@
         <div class="row align-items-center">
           <div class="col-lg-2 col-md-9 col-sm-9 col-xs-9 logo_column">
             <div class="header_logo_box">
-              <a href="/" class="logo navbar-brand" target="_blank" rel="nofollow">
+              <a routerLink="/accueil" class="logo navbar-brand" target="_blank" rel="nofollow">
                 <img src="assets/logo.png" alt="apiculter logo" class="logo_default">
               </a>
             </div>
@@ -23,27 +23,61 @@
                 <div class="navigation_menu">
                   <ul id="myNavbar" class="navbar_nav">
                     <li
-                      class="menu-item  menu-item-has-children dropdown active  position-static mega_menu nav-item">
-                      <a href="index.html" class="dropdown-toggle nav-link">
+                      [ngClass]="isRoute('/accueil')?'menu-item  menu-item-has-children dropdown position-static mega_menu nav-item active':'menu-item  menu-item-has-children dropdown position-static mega_menu nav-item'" >
+                      <a routerLink="/accueil" class="dropdown-toggle nav-link">
                         <span>Acceuil</span>
                       </a>
                     </li>
+                    @if(checkConnected()){
+                      <li
+                      [ngClass]="isRoute('/apiculteur')?'menu-item  menu-item-has-children dropdown position-static mega_menu nav-item active':'menu-item  menu-item-has-children dropdown position-static mega_menu nav-item'">
+                        <a routerLink="/apiculteur" class="dropdown-toggle nav-link">
+                          <span>Mon compte</span>
+                        </a>
+                      </li>
+                    }@else {
+                      <li
+                        class="menu-item  menu-item-has-children dropdown  position-static mega_menu nav-item">
+                        <a routerLink="/auth/connexion" class="dropdown-toggle nav-link">
+                          <span>Connextion</span>
+                        </a>
+                      </li>
 
+                      <li
+                        class="menu-item  menu-item-has-children dropdown  position-static mega_menu nav-item">
+                        <a routerLink="/auth/inscription" class="dropdown-toggle nav-link">
+                          <span>Inscription</span>
+                        </a>
+                      </li>
+
+                    }
+                      
 
                   </ul>
                 </div>
               </div>
-              <div class="header_right_content">
-                <ul>
-                  <li>
-                    <button type="button" class="search-toggler"><i
-                      class="icon-search3"></i></button>
-                  </li>
+              
 
-                  <li>
-                    <button type="button" class="contact-toggler"><i class="icon-menu1"></i></button>
-                  </li>
-                </ul>
+              <div class="header_right_content">
+
+              
+                  <ul class="navbar_nav">
+                    @if(checkConnected()){
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle username"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                            {{userData.email}}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" (click)="disconnect()">Déconnexion</a>
+                            </li>                        
+                        </ul>
+                      </li>
+                     }
+
+                  </ul>
+              
               </div>
             </div>
           </div>

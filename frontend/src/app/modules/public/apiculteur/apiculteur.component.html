@@ -1,19 +1,18 @@
 
 
 
-
 <div id="wrapper_full" class="content_all_warpper">
               
   <app-header></app-header>
   <!----header----->
 
   <div id="content" class="site-content " style="min-height: 500px">
-
+ 
     <div class="container">
 
       <div class="mt-4 d-flex" style="justify-content: space-between;">
 
-        <button class="btn btn-primary" (click)="addRuche()"> Ajouter ruche</button>
+        <button class="btn btn-primary" (click)="addRuche()">Ruche <i class="pi pi-plus"></i></button>
             
         <div style="float: right;">
           <p-selectButton [options]="stateOptions" (ngModelChange)="changeDisplay()"  [(ngModel)]="displayType" optionLabel="label" optionValue="value" />
@@ -31,7 +30,7 @@
                    responsiveLayout="scroll"
                    [lazy]="true"
                    [totalRecords]="totalRecords"
-                   (onLazyLoad)="loadItems($event)"
+                  
                    [resizableColumns]="true"
                    [responsive]="true"
                    currentPageReportTemplate="Affiche {first} à {last} sur {totalRecords} entrées"
@@ -68,13 +67,12 @@
                 <td>{{dataItem?.recoltes.length}} </td>
 
                 <td>
-                  <button  pButton pRipple icon="pi pi-eye" (click)="openInterventionDialog(dataItem)" class="p-button p-button-info" pTooltip="consulter" tooltipPosition="top"
-                  ></button>
+                  <button (click)="openInterventionDialog(dataItem)" class="btn btn-sm btn-info" pTooltip="consulter" tooltipPosition="top"><i class="pi pi-eye"></i> </button>
 
-                  <button pButton pRipple icon="pi pi-pencil" class="p-button p-button-primary mr-2" pTooltip="Modifier" tooltipPosition="top"
-                          (click)="editRuche(dataItem)"></button>
-                  <button (click)="deleteRuche(dataItem,$event)" pButton pRipple icon="pi pi-trash" class="p-button p-button-danger" pTooltip="Supprimer" tooltipPosition="top"
-                          ></button>
+                  <button (click)="editRuche(dataItem)" class="btn btn-sm btn-primary ms-2" pTooltip="Modifier" tooltipPosition="top"><i class="pi pi-pencil"></i> </button>
+
+                  <button (click)="deleteRuche(dataItem,$event)" class="btn btn-sm btn-danger ms-2" pTooltip="Supprimer" tooltipPosition="top"><i class="pi pi-trash"></i> </button>
+
                 </td>
 
               </tr>
@@ -173,7 +171,7 @@
   <ng-template pTemplate="header">
 
     <div class="w-100">
-      <h5>Interventions de la ruche '<span class="text-success">{{this.ruche.libelle}}</span>'</h5>
+      <h5>Interventions de la ruche: <span class="text-success">{{this.ruche.libelle}}</span></h5>
     </div>
     <div class="w-100">
       <div class="d-flex justify-content-end"> 
@@ -185,15 +183,16 @@
  
   <ng-template pTemplate="body">
 
+
     <div class="container" >
       <div class="d-flex mt-1 ">
-        <button  type="button"  class="btn btn-secondary">
+        <button  type="button"  class="btn btn-secondary" (click)="openRecolte()">
           Production
         </button>
       </div>
 
       <div class="mt-2 text-center">
-        <p-table #dt [rows]="10" [loading]="loadingIntervention" [rowHover]="true" [paginator]="true" [value]="interventionList"
+        <p-table #dt2 [rows]="10" [loading]="loadingIntervention" [rowHover]="true" [paginator]="true" [value]="interventionList"
         styleClass="p-datatable-sm p-datatable-striped"
         responsiveLayout="scroll"
         [lazy]="true"
@@ -226,19 +225,18 @@
             </tr>
           </ng-template>
     
-    
         </p-table>
       </div>
     </div>
 
   </ng-template>
-
+   
 
   <ng-template pTemplate="footer">
     <div class="container">
       <div class=" d-flex mt-4 ">
         <button  type="button"  class="btn btn-primary" (click)="addIntervention()">
-          Ajouter intervention
+          Intervention <i class="pi pi-plus"></i>
         </button>
       </div>
     </div>
@@ -277,44 +275,80 @@
 <p-confirmDialog [baseZIndex]="999999990" [style]="{width: '450px'}"></p-confirmDialog>
 
 
-<!--
-<p-dialog  [header]="'Création d\'une intervention'" [baseZIndex]="999999992"  [closable]="true" [modal]="true"    [(visible)]="addInterventionDialog" [style]="{ width: '35rem' }">
+<p-dialog    [baseZIndex]="999999992"  [closable]="false" [modal]="true"    [(visible)]="recolteDialog" [style]="{ width: '50%',height:'100%' }">
+    <h6></h6>
 
-  <form [formGroup]="interventionForm">
+    <ng-template pTemplate="header">
 
-    <div class="form-group">
-      <label for="libelle" class="col-form-label">Libellé de l'intervention:</label>
-      <input type="text" class="form-control" formControlName="libelle" [(ngModel)]="this.intervention.libelle" name="libelle" id="libelle" required placeholder="Intervention">
-    </div>
-
-    <div class="form-group">
-      <label  class="col-form-label">Date:</label>
-      <div class="mt-1 w-100">
-        <p-calendar [style]="{'width':'100%'}" appendTo="body" formControlName="date" [(ngModel)]="this.intervention.date" dateFormat="dd/mm/yy"  [iconDisplay]="'input'" 
-        [showIcon]="true" 
-        inputId="icondisplay" />
+      <div class="w-25">
+        <div class="d-flex justify-content-start"> 
+          <button type="button" style="border-radius: 50%;" (click)="onCloseRecolteDialog()" class="btn btn-sm btn-light" ><i class="pi pi-times"></i></button> 
+        </div>
       </div>
 
-   
+      <div class="w-100">
+        <h5>Récolte de la ruche :<span class="text-success">{{this.ruche.libelle}}</span></h5>
+      </div>
+      
+    </ng-template>
+
+
+  <div class="mt-3">
+    <p-chart type="line" [data]="dataChart" [options]="optionsChart" ></p-chart>
+  </div>
+
+  <form [formGroup]="recolteForm">
+
+    <div class="row">
+    
+      <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+          <label for="date" class="col-form-label">Date:</label>
+          <div class="w-100">
+            <p-calendar [style]="{'width':'100%'}" id="date" appendTo="body" formControlName="date" [(ngModel)]="this.recolte.date" dateFormat="dd/mm/yy"  [iconDisplay]="'input'" 
+            [showIcon]="true" 
+            inputId="icondisplay" />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+          <label for="poids" class="col-form-label">Masse de la récolte (g):</label>
+          <input type="text" class="form-control" formControlName="poids" [(ngModel)]="this.recolte.poids" name="poids" id="poids" required placeholder="Masse en gramme">
+        </div>
+      </div>
+  
     </div>
 
+
+
+    <!-- <div class="col-lg-3 col-md-3">
+      <div class="justify-content-center align-items-center" style="position: absolute; bottom: 33%;">
+        Total:<span>50</span> Kg
+      </div>
+         
+    </div> -->
+
+  </form>
+
+
+  <ng-template pTemplate="footer">
     <div class="d-flex mt-4 justify-content-center align-items-center ">
-
-      <button type="reset" [disabled]="senddingRequest" class="btn btn-light  btn_effacer me-2" (click)="this.addInterventionDialog=false">Fermer</button>
-
-      <button  type="button" (click)="saveIntervention()" [disabled]="interventionForm.invalid || senddingRequest" class="btn d-flex justify-content-center align-items-center btn-primary">
-        <span *ngIf="!senddingRequest">Enregister</span>
+      <button  type="button" (click)="saveRecolte()" [disabled]="recolteForm.invalid || senddingRequest" class="btn btn-primary">
+        <span *ngIf="!senddingRequest">Ajouter</span>
         <div *ngIf="senddingRequest" class="spinner-border text-sucess" role="status">
           <span class="sr-only"></span>
         </div>
-
-
       </button>
+
+      <div class="ms-4">
+        Total: <b class="">{{totalRecolte}}</b> Kg
+      </div>
     </div>
-  </form>
+  </ng-template>
 
 </p-dialog>
--->
+
 
 
 <p-toast [baseZIndex]="999999999"></p-toast>

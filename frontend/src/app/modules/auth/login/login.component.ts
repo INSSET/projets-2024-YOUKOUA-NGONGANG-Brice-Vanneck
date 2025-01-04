@@ -60,7 +60,7 @@ export class LoginComponent {
         res.email="";
         res.roles="";
         let us={
-          email:"bg",
+          email:"",
           roles:[],
           token:res.token,
           refresh_token:res.refresh_token

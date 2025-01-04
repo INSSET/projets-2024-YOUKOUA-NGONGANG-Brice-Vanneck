@@ -28,7 +28,10 @@
 
 .custom-dialog .p-dialog-header {
   display: flex !important;
+  flex-direction: row-reverse!important;
+
   justify-content: flex-start !important; /* Aligne tout à gauche */
+  float: left;
 }
 
 .custom-dialog .p-dialog-header-title {
