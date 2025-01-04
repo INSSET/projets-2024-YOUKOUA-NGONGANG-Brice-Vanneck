@@ -513,3 +513,8 @@ input[type="password"]{
   padding: 0px;
 }
 
+
+
+.background-img{
+  background-image: url(../images/home.jpg);
+}

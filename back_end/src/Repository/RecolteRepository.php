@@ -16,6 +16,54 @@ class RecolteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recolte::class);
     }
 
+    /**
+     * Récupère les récoltes groupées par date.
+     *
+     * @return array
+     */
+    public function findGroupedByDate($rucheId): array
+    {
+        /*
+        $qb = $this->createQueryBuilder('r')
+            ->select("DATE_FORMAT(r.date, '%Y-%m') as mois, SUM(r.poids) as totalPoids")
+            ->where('r.ruche = :rucheId')
+            ->setParameter('rucheId', $rucheId)
+            ->groupBy('mois')
+            ->orderBy('mois', 'ASC');
+
+        return $qb->getQuery()->getResult();
+        */
+
+        $qb = $this->createQueryBuilder('r')
+            ->where('r.ruche = :rucheId')
+            ->setParameter('rucheId', $rucheId);
+
+
+        $recoltes = $qb->getQuery()->getResult();
+
+        $grouped = [];
+        foreach ($recoltes as $recolte) {
+            $mois = $recolte->getDate()->format('Y-m');
+            if (!isset($grouped[$mois])) {
+                $grouped[$mois] = 0;
+            }
+            $grouped[$mois] += $recolte->getPoids();
+        }
+
+        $result = [];
+        foreach ($grouped as $mois => $totalPoids) {
+            $result[] = ['mois' => $mois, 'totalPoids' => $totalPoids];
+        }
+
+        return $result;
+    }
+
+
+
+
+
+
+
     //    /**
     //     * @return Recolte[] Returns an array of Recolte objects
     //     */

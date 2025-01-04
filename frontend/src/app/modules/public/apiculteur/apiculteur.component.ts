@@ -19,17 +19,19 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { InterventionService } from '../../../services/other/intervention.service';
+import {ChartModule} from 'primeng/chart';
+import { RecolteService } from '../../../services/other/recolte.service';
 
 @Component({
   selector: 'app-apiculteur',
   standalone: true,
   imports: [NgIf,LeafletModule,
     NgStyle, NgClass,HeaderComponent, FooterComponent,TableModule,FormsModule,ReactiveFormsModule,ButtonModule,ToastModule,
-    DialogModule,SelectButtonModule,TooltipModule,CalendarModule,CommonModule,ConfirmDialogModule],
+    DialogModule,SelectButtonModule,TooltipModule,CalendarModule,CommonModule,ConfirmDialogModule,ChartModule],
   templateUrl: './apiculteur.component.html',
   styleUrl: './apiculteur.component.scss',
   encapsulation: ViewEncapsulation.None,
-  providers:[RucheService,MessageService,InterventionService,ConfirmationService]
+  providers:[RucheService,MessageService,InterventionService,ConfirmationService,RecolteService]
 })
 export class ApiculteurComponent implements OnInit,AfterViewInit{
 
@@ -42,7 +44,18 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   positionDialog=false;
   interventionDialog: boolean = false;
   addInterventionDialog=false;
+  recolteDialog=false;
+  totalRecolte=0;
 
+  recolte={
+    poids:null,
+    date:new Date()
+  }
+  optionsChart ={
+
+    };
+  dataChart:any;  
+  
   limitItem:any;
   row=10;
   totalRecords=-1;
@@ -98,7 +111,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     longitude:null,
     latitude:null,
   interventions:Array(),
-    recoltes:[]
+    recoltes:Array()
   }
 
   intervention={
@@ -120,8 +133,14 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     libelle: new FormControl('', [Validators.required]),
   });
 
+  recolteForm = this.formBuilder.group({
+    poids: new FormControl('', [Validators.required,Validators.min(0.1)]),
+    date: new FormControl('', [Validators.required]),
+  });
+
   constructor(private formBuilder: FormBuilder,private rucheService:RucheService,private interventionService:InterventionService,
-    private messageService:MessageService,private confirmationService: ConfirmationService,private cdr: ChangeDetectorRef){
+    private messageService:MessageService,private confirmationService: ConfirmationService,private cdr: ChangeDetectorRef,
+  private recolteService:RecolteService){
 
   }
 
@@ -350,10 +369,10 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   }
 
   onDialogClose(){
-    console.log("close")
+    //console.log("close")
     this.interventionDialog=false;
     this.cdr.detectChanges();
-    console.log('end close');
+    //console.log('end close');
   }
   
 
@@ -370,6 +389,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     this.ruche.latitude = ruche.latitude;
 
     this.getIntervention(this.ruche.id);
+    
     this.cdr.detectChanges();
     console.log("this.interventionDialog après :", this.interventionDialog);
 }
@@ -440,7 +460,85 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
  }
 
 
+ openRecolte(){
+  this.recolteDialog=true;
+  let x=0;  
 
+  
+  this.recolteService.all(this.ruche.id).subscribe(data=>{
+    this.recolteList=data;
+    this.statChart()
+    //this.totalRecolte=this.getTotal();
+
+    this.recolteList.forEach(e=>{
+      x=e.totalPoids;
+    });
+
+    this.totalRecolte=parseFloat((x/1000).toFixed(3));
+    console.log(data);
+    console.log(this.ruche);
+
+    this.cdr.detectChanges();
+
+  });
+
+
+ }
+
+ onCloseRecolteDialog(){
+  
+  this.recolteDialog=false;
+  this.cdr.detectChanges();
+  
+}
+
+
+
+
+
+ saveRecolte(){
+
+  this.senddingRequest=true;
+  let recol={
+    poids:this.recolte.poids,
+    date:this.recolte.date.getDay()+'/'+this.recolte.date.getMonth()+'/'+this.recolte.date.getFullYear(),   
+    ruche_id:this.ruche.id
+  };
+
+  console.log(recol);
+
+  this.recolteService.create(recol).subscribe(data=>{
+    if(data!=null){
+      console.log(data);
+      let rec =data;
+      
+      this.recolteList.unshift(rec);
+      this.ruche.recoltes.unshift(rec);
+      this.rucheList.filter(x=>x.id==this.ruche.id)[0].recoltes=this.recolteList;
+      this.totalRecolte= this.totalRecolte+parseFloat((data.poids/1000).toFixed(3));
+
+      this.openRecolte();
+/*
+      this.messageToast("Recolte enregistrée avec succès","Confirmation");
+      this.dataChart=null;
+      this.optionsChart={};
+      setTimeout(() => {
+        this.statChart();
+
+      },200);
+*/
+
+      
+    }else{
+      //error
+      //we can also use status of response
+
+    }
+
+    this.senddingRequest=false;
+    this.cdr.detectChanges();
+  });
+ }
 
 /**
  * For map
@@ -474,6 +572,7 @@ markerDragEnd($event: any, index: number) {
 
 openPositionDialog(){
   this.positionDialog=true;
+  this.cdr.detectChanges();
 }
 
 
@@ -517,6 +616,35 @@ dialogOnMapReady(map: Leaflet2.Map) {
   this.mapDialog = map;
 }
 
+statChart():void{
+
+  this.dataChart = {
+    labels: this.recolteList.map(x=>x.mois),
+    datasets: [
+      {
+        label: 'Masse',
+        data:this.recolteList.map(x=>x.totalPoids),
+        backgroundColor: '#138ebb',
+      }
+    ]
+  };
+
+
+  this.optionsChart = {
+
+    plugins: {
+      title: {
+        display: true,
+        text: '',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    }
+  };
+
+}
 
 
 }
