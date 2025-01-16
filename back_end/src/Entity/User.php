@@ -87,6 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface,JWTUserI
         return $this;
     }
 
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */

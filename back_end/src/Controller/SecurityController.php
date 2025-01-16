@@ -23,15 +23,6 @@ class SecurityController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager,Security $security)
     {
 
-        $this->userRepository = $entityManager->getRepository(User::class);
-
-        $user = $security->getUser()->getUserIdentifier();
-
-        $this->user = $this->userRepository->findOneBy([
-            'email' => $user
-        ]);
-
-
     }
 
 
@@ -75,9 +66,17 @@ class SecurityController extends AbstractController
 
 
     #[Route('api/get_user', name: 'getUser')]
-    public function getUSerInfo()
+    public function getUSerInfo(EntityManagerInterface $entityManager,Security $security)
     {
         //dd($user);
+        $this->userRepository = $entityManager->getRepository(User::class);
+
+        $user = $security->getUser()->getUserIdentifier();
+
+        $this->user = $this->userRepository->findOneBy([
+            'email' => $user
+        ]);
+
         return $this->json($this->user);
     }
 

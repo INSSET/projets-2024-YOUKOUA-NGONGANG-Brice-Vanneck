@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import { HeaderComponent } from "../../../shared/header/header.component";
 import { FooterComponent } from "../../../shared/footer/footer.component";
 import { TableModule } from 'primeng/table';
@@ -21,6 +21,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { InterventionService } from '../../../services/other/intervention.service';
 import {ChartModule} from 'primeng/chart';
 import { RecolteService } from '../../../services/other/recolte.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-apiculteur',
@@ -34,6 +35,7 @@ import { RecolteService } from '../../../services/other/recolte.service';
   providers:[RucheService,MessageService,InterventionService,ConfirmationService,RecolteService]
 })
 export class ApiculteurComponent implements OnInit,AfterViewInit{
+  private title = inject(Title);
 
   search="";
   autre='';
@@ -54,8 +56,8 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   optionsChart ={
 
     };
-  dataChart:any;  
-  
+  dataChart:any;
+
   limitItem:any;
   row=10;
   totalRecords=-1;
@@ -142,6 +144,8 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     private messageService:MessageService,private confirmationService: ConfirmationService,private cdr: ChangeDetectorRef,
   private recolteService:RecolteService){
 
+
+    this.title.setTitle('Apiculteur');
   }
 
   ngOnInit(): void {
@@ -166,16 +170,16 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
             this.ruchedialog=false;
             this.getRuches();
             this.messageToast("Ruche Modifiée avec succès","Confirmation");
-    
+
           }else{
             //error or with statut
           }
-      
+
       });
 
     }else{
 
-      
+
       this.rucheService.create(this.ruche).subscribe(data=>{
         if(data!=null){
           console.log(data);
@@ -183,7 +187,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
           ruh.interventions=[];
           ruh.recoltes=[];
           this.rucheList.unshift(ruh);
-          this.appendToMap(data,this.rucheList.length-1);
+          //this.appendToMap(data,0);
           this.messageToast("Ruche enregistrée avec succès","Confirmation");
 
 
@@ -196,7 +200,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
       });
 
     }
-    
+
   }
 
   addRuche(){
@@ -275,7 +279,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
       this.interventionList=data?.member;
       this.totalInterventionRecords=data?.totalItems;
       console.log(data);
-      
+
 
       this.loadingIntervention=false;
       this.cdr.detectChanges();
@@ -328,7 +332,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
   appendToMap(data:any,index:number){
     const marker = this.generateMarker(data, index);
-    
+
         const popupContent = `
             <b>Ruche:</b> <span>${data.libelle}</span>
            <span class="ms-4">
@@ -374,7 +378,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     this.cdr.detectChanges();
     //console.log('end close');
   }
-  
+
 
   openInterventionDialog(ruche: any) {
     console.log("openInterventionDialog appelé avec :", ruche);
@@ -389,7 +393,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     this.ruche.latitude = ruche.latitude;
 
     this.getIntervention(this.ruche.id);
-    
+
     this.cdr.detectChanges();
     console.log("this.interventionDialog après :", this.interventionDialog);
 }
@@ -401,17 +405,17 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     let interv={
       libelle:this.intervention.libelle,
       //date:this.intervention.date.getDay()+'/'+this.intervention.date.getMonth()+'/'+this.intervention.date.getFullYear(),
-      
+
       ruche_id:this.ruche.id
     }
 
     console.log(interv);
- 
+
     this.interventionService.create(interv).subscribe(data=>{
       if(data!=null){
         console.log(data);
         let int =data;
-       
+
         this.interventionList.unshift(int);
         this.ruche.interventions.unshift(int);
         this.rucheList.filter(x=>x.id==this.ruche.id)[0].interventions=this.interventionList;
@@ -462,9 +466,9 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
 
  openRecolte(){
   this.recolteDialog=true;
-  let x=0;  
+  let x=0;
 
-  
+
   this.recolteService.all(this.ruche.id).subscribe(data=>{
     this.recolteList=data;
     this.statChart()
@@ -486,10 +490,10 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
  }
 
  onCloseRecolteDialog(){
-  
+
   this.recolteDialog=false;
   this.cdr.detectChanges();
-  
+
 }
 
 
@@ -501,7 +505,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
   this.senddingRequest=true;
   let recol={
     poids:this.recolte.poids,
-    date:this.recolte.date.getDay()+'/'+this.recolte.date.getMonth()+'/'+this.recolte.date.getFullYear(),   
+    date:this.recolte.date.getDay()+'/'+this.recolte.date.getMonth()+'/'+this.recolte.date.getFullYear(),
     ruche_id:this.ruche.id
   };
 
@@ -511,7 +515,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
     if(data!=null){
       console.log(data);
       let rec =data;
-      
+
       this.recolteList.unshift(rec);
       this.ruche.recoltes.unshift(rec);
       this.rucheList.filter(x=>x.id==this.ruche.id)[0].recoltes=this.recolteList;
@@ -528,7 +532,7 @@ export class ApiculteurComponent implements OnInit,AfterViewInit{
       },200);
 */
 
-      
+
     }else{
       //error
       //we can also use status of response
@@ -565,9 +569,10 @@ markerClicked($event: any, index: number) {
 }
 
 markerDragEnd($event: any, index: number) {
-  //console.log($event.target.getLatLng());
+  console.log($event.target);
+  console.log($event.target.getLatLng());
 
-  
+
 }
 
 openPositionDialog(){
@@ -578,7 +583,7 @@ openPositionDialog(){
 
 dialogMapClicked($event: any) {
   console.log($event.latlng.lat, $event.latlng.lng);
-  
+
   this.clearMarkersDialog();
 
   let mymarker ={
@@ -607,7 +612,7 @@ dialogMarkerDrag($event: any){
 
   this.position.lon=$event.target.getLatLng().lng;
   this.position.lat=$event.target.getLatLng().lat;
-  
+
 }
 
 dialogOnMapReady(map: Leaflet2.Map) {

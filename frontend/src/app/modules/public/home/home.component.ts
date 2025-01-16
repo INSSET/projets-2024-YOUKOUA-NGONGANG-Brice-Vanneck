@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FooterComponent} from "../../../shared/footer/footer.component";
 import {HeaderComponent} from "../../../shared/header/header.component";
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-home',
@@ -16,4 +17,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class HomeComponent {
 
+
+  private title = inject(Title);
+
+
+  constructor() {
+    this.title.setTitle('Accueil');
+  }
 }
