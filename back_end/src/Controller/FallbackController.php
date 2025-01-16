@@ -2,29 +2,29 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FallbackController
+class FallbackController extends AbstractController
 {
 
-
-/*
-   #[Route('/{route}', name: 'fallback', requirements: ['route' => '^(?!api/).*'])]
-    public function index(): Response
+    #[Route('/', name: 'home')]
+    public function index()
     {
-        $filePath = '../public/index.html';
 
-        if (!file_exists($filePath)) {
-            return new Response('File not found', Response::HTTP_NOT_FOUND);
-        }
-
-        return new Response(file_get_contents($filePath), Response::HTTP_OK, [
-            //'Content-Type' => 'text/html',
-        ]);
+        return $this->render('base.html.twig');
     }
-*/
 
+
+   #[Route('/{route}', name: 'fallback', requirements: ['route' => '^(?!api/).*'])]
+    public function index2(): Response
+    {
+        return $this->render('base.html.twig');
+    }
+
+
+    /*
     #[Route('/assets/{path}', name: 'serve_assets', requirements: ['path' => '.+'])]
     public function serveAsset(string $path, Request $request): Response
     {
@@ -54,7 +54,7 @@ class FallbackController
         return new Response(file_get_contents($filePath), 200, ['Content-Type' => $contentType]);
 
     }
-
+*/
 
 
     }
