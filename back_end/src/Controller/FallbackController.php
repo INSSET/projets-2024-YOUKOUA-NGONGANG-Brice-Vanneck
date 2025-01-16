@@ -20,7 +20,7 @@ class FallbackController
         }
 
         return new Response(file_get_contents($filePath), Response::HTTP_OK, [
-            'Content-Type' => 'text/html',
+            //'Content-Type' => 'text/html',
         ]);
     }
 
