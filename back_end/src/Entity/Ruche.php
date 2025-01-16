@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(order: ['id' => 'DESC'],
     normalizationContext: ['groups' => ['ruche:read']], denormalizationContext: ['groups' => ['ruche:write']]),
-    ApiFilter(SearchFilter::class, properties: ['libelle' => 'partial']),
+    ApiFilter(SearchFilter::class, properties: ['libelle' => 'partial','user'=>'exact']),
 
 ]
 #[ORM\Entity(repositoryClass: RucheRepository::class)]

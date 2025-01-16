@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import {UserHelper} from "../../shared/helpers/user";
 
 @Injectable()
 export class RucheService {
@@ -27,13 +28,14 @@ export class RucheService {
 
 
   all(page=1,libelle=''): Observable<any> {
+    let userid = UserHelper.getUser()?.id;
 
    // http://127.0.0.1:8000/api/ruches?page=1&libelle=une
 
     if(libelle!=''){
-      return this.http.get(`${this.rootURL}?page=${page}&libelle=${libelle}`);
+      return this.http.get(`${this.rootURL}?page=${page}&user=${userid}&libelle=${libelle}`);
     }else{
-      return this.http.get(`${this.rootURL}?page=${page}`);
+      return this.http.get(`${this.rootURL}?page=${page}&user=${userid}`);
     }
 
   }

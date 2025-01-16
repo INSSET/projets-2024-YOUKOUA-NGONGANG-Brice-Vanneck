@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit{
 
   disconnect(): void{
     UserHelper.disconect();
-    
+
     this.router.navigateByUrl('/accueil');
   }
 

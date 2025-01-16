@@ -18,14 +18,14 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
         console.log(err);
 
-      if (String(err.error.message).includes('Expired JWT Token') && UserHelper.isConnect()) {
-        return this.http.post<any>(`${this.rootURL}token/refresh`, { 
-            refresh_token: UserHelper.getUser().refresh_token 
+    if (String(err.error.message).includes('Expired JWT Token') && UserHelper.isConnect()) {
+        return this.http.post<any>(`${this.rootURL}token/refresh`, {
+            refresh_token: UserHelper.getUser().refresh_token
         }).pipe(
             switchMap((res: any) => {
                 // Mise à jour des tokens
                 UserHelper.refresh(res.token, res.refresh_token);
-                
+
                 // Relance de la requête originale avec le nouveau token
                 return next.handle(request.clone({
                     setHeaders: {
@@ -35,23 +35,28 @@ export class ErrorInterceptor implements HttpInterceptor {
             }),
             catchError(refreshErr => {
                 //console.error("Erreur lors du rafraîchissement du token :", refreshErr);
-    
+
                 // Gérer les erreurs du refresh (exemple : forcer une déconnexion)
+                //console.log("catch error");
+                //console.log(refreshErr);
+
                 UserHelper.disconect();
                 this.router.navigateByUrl('/auth/connexion'); // Redirige vers la page de login
                 return throwError(refreshErr); // Propagation de l'erreur
             })
         );
     } else if ([400, 402, 422].includes(err.status)) {
-       
+
         return throwError(err); // Propagation de l'erreur si nécessaire
-    } else {
+    }
+    /*
+    else {
         // Gérer d'autres erreurs (exemple : déconnexion pour les erreurs critiques)
         UserHelper.disconect();
         this.router.navigateByUrl('/accueil'); // Redirection
         //return throwError(err); // Propagation de l'erreur
-    }
-    
+    }*/
+
 
       const error = (err && err.error && err.error.message) || err.statusText;
       console.error(err);

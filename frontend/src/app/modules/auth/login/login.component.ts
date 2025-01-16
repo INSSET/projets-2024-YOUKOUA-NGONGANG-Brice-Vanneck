@@ -5,18 +5,22 @@ import {Router, RouterLink} from "@angular/router";
 import { AuthService } from '../../../services/auth/auth.service';
 import { MessageService } from 'primeng/api';
 import { UserHelper } from '../../../shared/helpers/user';
+import {ToastModule} from "primeng/toast";
+import {catchError} from "rxjs/operators";
+import {throwError} from "rxjs";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink,ReactiveFormsModule, FormsModule,NgIf],
+    imports: [RouterLink, ReactiveFormsModule, FormsModule, NgIf, ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers:[AuthService,MessageService]
 })
 export class LoginComponent {
 
-
+  private title = inject(Title);
   submitting=false;
 
   login={
@@ -38,9 +42,10 @@ export class LoginComponent {
   }
 
 
+
   ngOnInit(): void {
     this.renderer.addClass(this.document.body, 'bg-auth');
-
+    this.title.setTitle('Connexion');
   }
 
   ngOnDestroy(): void {
@@ -50,8 +55,9 @@ export class LoginComponent {
   onSubmit(){
     this.submitting=true;
 
-    this.authService.login(this.login).subscribe(response=>{
-       
+    this.authService.login(this.login).subscribe({
+      next:(response)=>{
+
         console.log('Statut HTTP :', response.status);
         console.log('Body de la réponse :', response.body);
 
@@ -73,14 +79,35 @@ export class LoginComponent {
           let tok = UserHelper.getUser();
           tok.email=data.email;
           tok.roles=data.roles;
+          tok.id=data.id;
           console.log(tok);
-          //UserHelper.disconect();
+          UserHelper.disconect();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Accès autorisé !',
+            detail: 'Connexion réussi',
+            life: 3000
+          });
+
           UserHelper.connect(tok);
           this.router.navigateByUrl('/apiculteur');
+
           this.submitting=false;
         });
 
+      },
+      error:(err)=>{
+        this.submitting = false;
+
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Informations incorrectes !',
+          detail: 'Verifier votre login ou votre mot de passe',
+          life: 3000
+        });
+      }
     });
+
 
 
 

@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any>{
-    return this.http.post<any>(`${this.rootURL}register`, userData);
+    return this.http.post<any>(`${this.rootURL}register`, userData,{ observe: 'response' });
   }
 
   resetPassword(userData: any): Observable<any>{
@@ -29,11 +29,11 @@ export class AuthService {
   }
 
 
-  
+
   getCurentUser():Observable<any> {
     return this.http.get<any>(`${this.rootURL}get_user`)
   }
-  
+
 
   verifyToken(code:any ):Observable<any> {
     return this.http.get<any>(`${this.rootURL}checkend_register/${code}`)
