@@ -9,7 +9,7 @@ class FallbackController
 {
 
 
-
+/*
    #[Route('/{route}', name: 'fallback', requirements: ['route' => '^(?!api/).*'])]
     public function index(): Response
     {
@@ -23,7 +23,7 @@ class FallbackController
             //'Content-Type' => 'text/html',
         ]);
     }
-
+*/
 
     #[Route('/assets/{path}', name: 'serve_assets', requirements: ['path' => '.+'])]
     public function serveAsset(string $path, Request $request): Response
