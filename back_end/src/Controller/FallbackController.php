@@ -10,7 +10,7 @@ class FallbackController
 
 
 
-    #[Route('/{route}', name: 'fallback', requirements: ['route' => '^(?!api/).*'])]
+//    #[Route('/{route}', name: 'fallback', requirements: ['route' => '^(?!api/).*'])]
     public function index(): Response
     {
         $filePath = '../public/index.html';
