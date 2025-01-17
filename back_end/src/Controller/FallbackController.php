@@ -12,7 +12,6 @@ class FallbackController extends AbstractController
     #[Route('/', name: 'home')]
     public function index()
     {
-
         return $this->render('base.html.twig');
     }
 

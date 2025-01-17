@@ -8,7 +8,7 @@
           <div class="col-lg-2 col-md-9 col-sm-9 col-xs-9 logo_column">
             <div class="header_logo_box">
               <a routerLink="/accueil" class="logo navbar-brand" target="_blank" rel="nofollow">
-                <img src="assets/logo.png" alt="apiculter logo" class="logo_default">
+                <img src="../../../assets_files/logo.png" alt="apiculter logo" class="logo_default">
               </a>
             </div>
           </div>
@@ -51,16 +51,16 @@
                       </li>
 
                     }
-                      
+
 
                   </ul>
                 </div>
               </div>
-              
+
 
               <div class="header_right_content">
 
-              
+
                   <ul class="navbar_nav">
                     @if(checkConnected()){
                       <li class="nav-item dropdown">
@@ -71,13 +71,13 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" (click)="disconnect()">Déconnexion</a>
-                            </li>                        
+                            </li>
                         </ul>
                       </li>
                      }
 
                   </ul>
-              
+
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
 
 
 
-<!-- 
+<!--
 
 <p-dialog [baseZIndex]="999999999"  [styleClass]="'custom-dialog'" [closable]="true"     [(visible)]="ruchedialog" [style]="{ width: '35rem' }">
 
