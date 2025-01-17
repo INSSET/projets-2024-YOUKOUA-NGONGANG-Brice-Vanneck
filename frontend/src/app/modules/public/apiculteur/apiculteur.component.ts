@@ -14,7 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { UserHelper } from '../../../shared/helpers/user';
 import { RucheService } from '../../../services/other/ruche.service';
-Leaflet.Icon.Default.imagePath = 'assets/';
+Leaflet.Icon.Default.imagePath = 'assets_files/';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
